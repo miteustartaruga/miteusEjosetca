@@ -19,12 +19,13 @@ public class JoseeMateusTabuleiroeRegrasTCA {
     
    static Scanner LER = new Scanner(System.in);
    static int[][] TABULEIRO = new int[9][9];
-   static boolean[][] PAREDESHORIZONTAIS = new boolean[8][9];
-   static boolean[][] PAREDESVERTICAIS = new boolean[9][8];
+   static boolean[][] PAREDESHORIZONTAIS = new boolean[9][9];
+   static boolean[][] PAREDESVERTICAIS = new boolean[9][9];
 
 //Aqui vão ficar os métodos que serão ativados dentro do método main:
 
     public static void imprimirTabuleiro() {
+        
         //Essa parte do código aq imprime a legenda
         System.out.print("   ");
         for(int j = 1; j <= 9; j++) {
@@ -85,6 +86,27 @@ public class JoseeMateusTabuleiroeRegrasTCA {
 //A partir daqui fica o método main, basicamente o principal que sustenta o programa:
 
     public static void main (String[]args) {
-        imprimirTabuleiro();
+        
+        TABULEIRO [ControleTeclasJogoComJNA.posY] [ControleTeclasJogoComJNA.posX] = 1;
+        TABULEIRO [0] [4] = 2;
+
+        ControleTeclasJogoComJNA.limparConsole();
+
+        System.out.println("Use W, A, S, D para mover o personagem. Pressione ESC para sair.");
+        ControleTeclasJogoComJNA.esperarTecla();
+        while (true) {
+            
+            ControleTeclasJogoComJNA.verificarMovimentacao();
+            if(ControleTeclasJogoComJNA.redesenhar) {
+
+                ControleTeclasJogoComJNA.limparConsole();
+                imprimirTabuleiro();
+                ControleTeclasJogoComJNA.redesenhar = false;
+            }
+        
+            ControleTeclasJogoComJNA.esperar(100);
+        }
+        
+        
     }
 }

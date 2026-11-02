@@ -47,7 +47,9 @@ public class ControleTeclasJogoComJNA {
 
     static boolean windows = System.getProperty("os.name").toLowerCase().contains("win");
     static boolean tecladoPreparado = false;
-
+    static boolean[][] PAREDESHORIZONTAIS = new boolean[9][9];
+    static boolean[][] PAREDESVERTICAIS = new boolean[9][8];
+    
     // Retorna true se alguma tecla foi pressionada. NÃO espera: se nenhuma
     // tecla foi apertada, retorna false na hora e o jogo continua.
     public static boolean pressionouTecla() {
@@ -121,9 +123,9 @@ public class ControleTeclasJogoComJNA {
         }
     }
 
-    public static void desenharTela(int x, int y, int largura, int altura) {
-        for (int i = 0; i < altura; i++) {
-            for (int j = 0; j < largura; j++) {
+    public static void desenharTela(int x, int y) {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
                 if (i == y && j == x) {
                     System.out.print('H');
                 } else {
@@ -136,21 +138,42 @@ public class ControleTeclasJogoComJNA {
     }
 
     public static void main(String[] args) {
-        int posX = 8;
-        int posY = 4;
-        JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posX][posY] = 1;
-        JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [0][posY] = 2;
-        int largura = 40;
-        int altura = 10;
+        
+        JoseeMateusTabuleiroeRegrasTCA.TABULEIRO[posY][posX] = 1;
+        JoseeMateusTabuleiroeRegrasTCA.TABULEIRO[0][posX] = 2;
         
         limparConsole();
         System.out.println("Mova o personagem H com W, A, S, D. ESC para sair.");
         esperarTecla();
-
+        
         while (true) {
+            
+            verificarMovimentacao();
+            if (redesenhar) {
+                
+                limparConsole();
+                JoseeMateusTabuleiroeRegrasTCA.imprimirTabuleiro();
+                redesenhar = false;
+            }
+        
+            esperar(100);
+        }
+    }
+
+    static int posX = 4;
+    static int posY = 8;
+    static boolean redesenhar = true;
+    
+    public static void verificarMovimentacao() {
+
+
             // Lógica para detectar o movimento
             if (pressionouTecla()) {
                 int tecla = obtemTeclaPressionada();
+                
+                int antigoX = posX;
+                int antigoY = posY;
+
                 switch (tecla) {
                     case 'a':
                     case 'A':
@@ -171,20 +194,41 @@ public class ControleTeclasJogoComJNA {
                     case 27: // Código ASCII para a tecla ESC
                         return; // Sai do loop e termina o programa
                 }
-            }
+            
+                if(posX == antigoX && posY == antigoY) {
+                    return;
+                }
+            
+                boolean bloqueio = false;
 
-            // Não deixa o personagem sair da tela
-            if (posX < 0) posX = 0;
-            if (posX > largura - 1) posX = largura - 1;
-            if (posY < 0) posY = 0;
-            if (posY > altura - 1) posY = altura - 1;
+                // Não deixa o personagem sair da tela
+                if (posX < 0) posX = 0;
+                if (posX > 8) posX = 8;
+                if (posY < 0) posY = 0;
+                if (posY > 8) posY = 8;
+                
+                // Não deixa o personagem passar por uma parede
+                if(posY < antigoY && PAREDESHORIZONTAIS[posY][posX]) {
+                    bloqueio = true;
+                }
+                if (posY > antigoY && PAREDESHORIZONTAIS[posY][posX]) {
+                    bloqueio = true;
+                }
+                if (posX < antigoX && PAREDESVERTICAIS[posY][posX]) {
+                    bloqueio = true;
+                }
+                if (posX > antigoX && PAREDESHORIZONTAIS[posY][posX]) {
+                    bloqueio = true;
+                }
 
-            // Lógica do jogo (desenhar a tela)
-            limparConsole();
-            desenharTela(posX, posY, largura, altura);
-
-            // Controla a velocidade do jogo
-            esperar(100); // espera 100 milissegundos -> 0,1 segundo
+                if (bloqueio) {
+                    posX = antigoX;
+                    posY = antigoY;
+                } else {
+                    JoseeMateusTabuleiroeRegrasTCA.TABULEIRO[antigoY][antigoX] = 0;
+                    JoseeMateusTabuleiroeRegrasTCA.TABULEIRO[posY][posX] = 1;
+                    redesenhar = true;
+                }
         }
     }
 }
