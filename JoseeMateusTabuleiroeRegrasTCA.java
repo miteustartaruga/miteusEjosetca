@@ -82,13 +82,12 @@ public class JoseeMateusTabuleiroeRegrasTCA {
     }
 
 
-
 //A partir daqui fica o método main, basicamente o principal que sustenta o programa:
 
     public static void main (String[]args) {
         
-        TABULEIRO [ControleTeclasJogoComJNA.posY] [ControleTeclasJogoComJNA.posX] = 1;
-        TABULEIRO [0] [4] = 2;
+        TABULEIRO [ControleTeclasJogoComJNA.posYJogador1] [ControleTeclasJogoComJNA.posXJogador1] = 1;
+        TABULEIRO [ControleTeclasJogoComJNA.posYJogador2] [ControleTeclasJogoComJNA.posXJogador2] = 2;
 
         ControleTeclasJogoComJNA.limparConsole();
 
@@ -96,17 +95,48 @@ public class JoseeMateusTabuleiroeRegrasTCA {
         ControleTeclasJogoComJNA.esperarTecla();
         while (true) {
             
-            ControleTeclasJogoComJNA.verificarMovimentacao();
-            if(ControleTeclasJogoComJNA.redesenhar) {
+            
+            if (verificarSeExisteVencedor() == true) {
+                
+                break;
+            } else {
+                if (ControleTeclasJogoComJNA.vez == 1) {
+                
+                    ControleTeclasJogoComJNA.verificarMovimentacaoJogador1();
+                } else {
 
-                ControleTeclasJogoComJNA.limparConsole();
-                imprimirTabuleiro();
-                ControleTeclasJogoComJNA.redesenhar = false;
+                    ControleTeclasJogoComJNA.verificarMovimentacaoJogador2();
+                }
+                if(ControleTeclasJogoComJNA.redesenhar) {
+
+                    ControleTeclasJogoComJNA.limparConsole();
+                    imprimirTabuleiro();
+                    ControleTeclasJogoComJNA.redesenhar = false;
+                    ControleTeclasJogoComJNA.vez = (ControleTeclasJogoComJNA.vez == 1) ? 2 : 1;
+                }
+                
+                ControleTeclasJogoComJNA.esperar(100);
+                if (ControleTeclasJogoComJNA.vez == 1) {
+
+                    ControleTeclasJogoComJNA.vez = 2;
+                } else {
+
+                    ControleTeclasJogoComJNA.vez = 1;
+                }
+                    
+                
             }
-        
-            ControleTeclasJogoComJNA.esperar(100);
-        }
-        
-        
+        }    
     }
+
+    public static boolean verificarSeExisteVencedor() {
+        
+        boolean algumVencedor = false;
+        if (ControleTeclasJogoComJNA.posYJogador1 == 0 || ControleTeclasJogoComJNA.posYJogador2 == 8) {
+
+            algumVencedor = true;
+        }
+        return algumVencedor;
+    }
+
 }

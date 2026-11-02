@@ -123,32 +123,18 @@ public class ControleTeclasJogoComJNA {
         }
     }
 
-    public static void desenharTela(int x, int y) {
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                if (i == y && j == x) {
-                    System.out.print('H');
-                } else {
-                    System.out.print('.');
-                }
-            }
-            System.out.println();
-        }
-        System.out.println("Use W, A, S, D para mover o personagem. Pressione ESC para sair.");
-    }
-
     public static void main(String[] args) {
         
-        JoseeMateusTabuleiroeRegrasTCA.TABULEIRO[posY][posX] = 1;
-        JoseeMateusTabuleiroeRegrasTCA.TABULEIRO[0][posX] = 2;
+        JoseeMateusTabuleiroeRegrasTCA.TABULEIRO[posYJogador1][posXJogador1] = 1;
+        JoseeMateusTabuleiroeRegrasTCA.TABULEIRO[posYJogador2][posXJogador2] = 2;
         
         limparConsole();
-        System.out.println("Mova o personagem H com W, A, S, D. ESC para sair.");
+        System.out.println("Mova o personagem 1 com W, A, S, D. ESC para sair.");
         esperarTecla();
         
         while (true) {
             
-            verificarMovimentacao();
+            verificarMovimentacaoJogador1();
             if (redesenhar) {
                 
                 limparConsole();
@@ -160,75 +146,171 @@ public class ControleTeclasJogoComJNA {
         }
     }
 
-    static int posX = 4;
-    static int posY = 8;
-    static boolean redesenhar = true;
+    static int posXJogador1 = 4;
+    static int posYJogador1 = 8;
+    static int posXJogador2 = 4;
+    static int posYJogador2 = 0;
+    static boolean redesenhar = true; 
+    static int vez = 1;
     
-    public static void verificarMovimentacao() {
+    public static void verificarMovimentacaoJogador1() {
 
-
-            // Lógica para detectar o movimento
-            if (pressionouTecla()) {
-                int tecla = obtemTeclaPressionada();
+        // Lógica para detectar o movimento
+        if (pressionouTecla()) {
+            int tecla = obtemTeclaPressionada();
+            if (vez != 1) {  
                 
-                int antigoX = posX;
-                int antigoY = posY;
+                return;
+            } else {   
+                
+                int antigoX = posXJogador1;
+                int antigoY = posYJogador1;
 
                 switch (tecla) {
                     case 'a':
                     case 'A':
-                        posX--;
+                        posXJogador1--;
                         break;
                     case 'd':
                     case 'D':
-                        posX++;
+                        posXJogador1++;
                         break;
                     case 'w':
                     case 'W':
-                        posY--;
+                        posYJogador1--;
                         break;
                     case 's':
                     case 'S':
-                        posY++;
+                        posYJogador1++;
                         break;
                     case 27: // Código ASCII para a tecla ESC
                         return; // Sai do loop e termina o programa
                 }
-            
-                if(posX == antigoX && posY == antigoY) {
+                
+                if(posXJogador1 == antigoX && posYJogador1 == antigoY) {
                     return;
                 }
+                
+                boolean bloqueado = false;
+
+                // Não deixa o personagem sair da tela
+                if (posXJogador1 < 0) posXJogador1 = 0;
+                if (posXJogador1 > 8) posXJogador1 = 8;
+                if (posYJogador1 < 0) posYJogador1 = 0;
+                if (posYJogador1 > 8) posYJogador1 = 8;
+                    
+                // Não deixa o personagem passar por uma parede
+                if(posYJogador1 < antigoY && PAREDESHORIZONTAIS[posYJogador1][posXJogador1]) {
+                    bloqueado = true;
+                }
+                if (posYJogador1 > antigoY && PAREDESHORIZONTAIS[posYJogador1][posXJogador1]) {
+                    bloqueado = true;
+                }
+                if (posXJogador1 < antigoX && PAREDESVERTICAIS[posYJogador1][posXJogador1]) {
+                    bloqueado = true;
+                }
+                if (posXJogador1 > antigoX && PAREDESHORIZONTAIS[posYJogador1][posXJogador1]) {
+                    bloqueado = true;
+                }
+
+                if (bloqueado) {
+                    posXJogador1 = antigoX;
+                    posYJogador1 = antigoY;
+                } else {
+                    JoseeMateusTabuleiroeRegrasTCA.TABULEIRO[antigoY][antigoX] = 0;
+                    JoseeMateusTabuleiroeRegrasTCA.TABULEIRO[posYJogador1][posXJogador1] = 1;
+                    redesenhar = true;
+                }
+                tecla++;
+            }
+        
+        }
+    }
+
+    public static void verificarMovimentacaoJogador2() {
+
+        // Lógica para detectar o movimento
+        if (pressionouTecla()) {
+            int tecla = obtemTeclaPressionada();
             
+            if (vez != 2) {
+                
+                return;
+            } else {   
+                
+                int antigoX = posXJogador2;
+                int antigoY = posYJogador2;
+
+                switch (tecla) {
+                    case 'j':
+                    case 'J':
+                        posXJogador2--;
+                        break;
+                    case 'l':
+                    case 'L':
+                        posXJogador2++;
+                        break;
+                    case 'i':
+                    case 'I':
+                        posYJogador2--;
+                        break;
+                    case 'k':
+                    case 'K':
+                        posYJogador2++;
+                        break;
+                    case 27: // Código ASCII para a tecla ESC
+                        return; // Sai do loop e termina o programa
+                    }
+                
+                if(posXJogador2 == antigoX && posYJogador2 == antigoY) {
+                    return;
+                }
+                
                 boolean bloqueio = false;
 
                 // Não deixa o personagem sair da tela
-                if (posX < 0) posX = 0;
-                if (posX > 8) posX = 8;
-                if (posY < 0) posY = 0;
-                if (posY > 8) posY = 8;
-                
+                if (posXJogador2 < 0) posXJogador2 = 0;
+                if (posXJogador2 > 8) posXJogador2 = 8;
+                if (posYJogador2 < 0) posYJogador2 = 0;
+                if (posYJogador2 > 8) posYJogador2 = 8;
+                    
                 // Não deixa o personagem passar por uma parede
-                if(posY < antigoY && PAREDESHORIZONTAIS[posY][posX]) {
+                if(posYJogador2 < antigoY && PAREDESHORIZONTAIS[posYJogador2][posXJogador2]) {
+                    
                     bloqueio = true;
                 }
-                if (posY > antigoY && PAREDESHORIZONTAIS[posY][posX]) {
+                
+                if (posYJogador2 > antigoY && PAREDESHORIZONTAIS[posYJogador2][posXJogador2]) {
+                    
                     bloqueio = true;
                 }
-                if (posX < antigoX && PAREDESVERTICAIS[posY][posX]) {
+                
+                if (posXJogador2 < antigoX && PAREDESVERTICAIS[posYJogador2][posXJogador2]) {
+                    
                     bloqueio = true;
                 }
-                if (posX > antigoX && PAREDESHORIZONTAIS[posY][posX]) {
+                
+                if (posXJogador2 > antigoX && PAREDESHORIZONTAIS[posYJogador2][posXJogador2]) {
+                    
                     bloqueio = true;
                 }
 
                 if (bloqueio) {
-                    posX = antigoX;
-                    posY = antigoY;
+                    
+                    posXJogador2 = antigoX;
+                    posYJogador2 = antigoY;
                 } else {
+                    
                     JoseeMateusTabuleiroeRegrasTCA.TABULEIRO[antigoY][antigoX] = 0;
-                    JoseeMateusTabuleiroeRegrasTCA.TABULEIRO[posY][posX] = 1;
+                    JoseeMateusTabuleiroeRegrasTCA.TABULEIRO[posYJogador2][posXJogador2] = 2;
                     redesenhar = true;
+                    vez--;
                 }
+            }
+        
         }
     }
+
+
+
 }
