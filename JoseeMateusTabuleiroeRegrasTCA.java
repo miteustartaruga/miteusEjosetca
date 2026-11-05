@@ -27,10 +27,12 @@ public class JoseeMateusTabuleiroeRegrasTCA {
     public static void imprimirTabuleiro() {
         
         //Essa parte do código aq imprime a legenda
+        int letra = 65;
         System.out.print("   ");
-        for(int j = 1; j <= 9; j++) {
+        for(int j = 0; j < 9; j++) {
 
-            System.out.print(j + "   ");
+            System.out.print(" " + (char) letra + "  ");
+            letra++;
         }
         System.out.println();
         for(int i = 0; i < 9; i++) {
@@ -42,9 +44,9 @@ public class JoseeMateusTabuleiroeRegrasTCA {
                     System.out.print("---+");
                 }
                 System.out.println();
-            }
+            }  
 
-            System.out.print(i + " |");
+            System.out.print(i + 1 + " |");
             for(int j = 0; j < 9; j++) {
                 char casadeinicio = ' ';
                 if(TABULEIRO[i][j] == 1) {
@@ -88,6 +90,7 @@ public class JoseeMateusTabuleiroeRegrasTCA {
         
         TABULEIRO [ControleTeclasJogoComJNA.posYJogador1] [ControleTeclasJogoComJNA.posXJogador1] = 1;
         TABULEIRO [ControleTeclasJogoComJNA.posYJogador2] [ControleTeclasJogoComJNA.posXJogador2] = 2;
+        boolean turnoJogador1 = true;
 
         ControleTeclasJogoComJNA.limparConsole();
 
@@ -100,31 +103,32 @@ public class JoseeMateusTabuleiroeRegrasTCA {
                 
                 break;
             } else {
-                if (ControleTeclasJogoComJNA.vez == 1) {
                 
+                if (turnoJogador1) {
+
                     ControleTeclasJogoComJNA.verificarMovimentacaoJogador1();
+                    if (ControleTeclasJogoComJNA.redesenhar) {
+
+                        ControleTeclasJogoComJNA.limparConsole();
+                        imprimirTabuleiro();
+                        ControleTeclasJogoComJNA.redesenhar = false;
+                    }
+                
+                    ControleTeclasJogoComJNA.esperar(100);
+                    turnoJogador1 = false;
                 } else {
 
                     ControleTeclasJogoComJNA.verificarMovimentacaoJogador2();
-                }
-                if(ControleTeclasJogoComJNA.redesenhar) {
+                    if (ControleTeclasJogoComJNA.redesenhar) {
 
-                    ControleTeclasJogoComJNA.limparConsole();
-                    imprimirTabuleiro();
-                    ControleTeclasJogoComJNA.redesenhar = false;
-                    ControleTeclasJogoComJNA.vez = (ControleTeclasJogoComJNA.vez == 1) ? 2 : 1;
-                }
-                
-                ControleTeclasJogoComJNA.esperar(100);
-                if (ControleTeclasJogoComJNA.vez == 1) {
-
-                    ControleTeclasJogoComJNA.vez = 2;
-                } else {
-
-                    ControleTeclasJogoComJNA.vez = 1;
-                }
+                        ControleTeclasJogoComJNA.limparConsole();
+                        imprimirTabuleiro();
+                        ControleTeclasJogoComJNA.redesenhar = false;
+                    }
                     
-                
+                    ControleTeclasJogoComJNA.esperar(100);
+                    turnoJogador1 = true;
+                }
             }
         }    
     }
