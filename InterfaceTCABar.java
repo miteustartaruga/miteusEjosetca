@@ -1,111 +1,228 @@
 import java.util.Scanner;
 public class InterfaceTCABar {
     
-    static Scanner LER = new Scanner (System.in);
 
-    public static char lerTecla() {
-        char letra = LER.next().charAt(0);
-        return letra;
-    }
+    public static void imprimirInterface(boolean comecarpartida) {
 
-    public static String imprimirInterface() {
 
-        boolean sair = false;
         String arte = """
             
-    ╔═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╗
-    ║                                                                    ║                                                             
-    ║                                                                    ║   
-    ║         ████   ███  ████  ████  ███  ███   ███  ████  █████        ║ 
-    #         █   █ █   █ █   █ █   █  █  █     █   █ █   █ █            # 
-    ║         ████  █████ ████  ████   █  █     █████ █   █ ████         ║ 
-    ║         █   █ █   █ █  █  █  █   █  █     █   █ █   █ █            ║ 
-    ║         ████  █   █ █   █ █   █ ███  ███  █   █ ████  █████        ║ 
-    #                                                                    # 
-    ║                                                                    ║ 
-    ║                    Selecione o modo de jogo:                       ║ 
-    ║                                                                    ║ 
-    #                     (Modo multijogador 1x1)                        # 
-    ║                      Modo multijogador caos                        ║ 
-    ║                          ver créditos                              ║ 
-    ║                                                                    ║ 
-    #                                                                    # 
-    ║                                                                    ║ 
-    ║                                                                    ║ 
-    ║                                                                    ║ 
-    ╚═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╝
+        ╔═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╗
+        ║                                                                    ║                                                     
+        ║                                                                    ║   
+        ║         ████   ███  ████  ████  ███  ███   ███  ████  █████ ™      ║ 
+        #         █   █ █   █ █   █ █   █  █  █     █   █ █   █ █            # 
+        ║         ████  █████ ████  ████   █  █     █████ █   █ ████         ║ 
+        ║         █   █ █   █ █  █  █  █   █  █     █   █ █   █ █            ║ 
+        ║         ████  █   █ █   █ █   █ ███  ███  █   █ ████  █████        ║ 
+        #                                                                    # 
+        ║                                                                    ║ 
+        ║                    Selecione o modo de jogo:                       ║ 
+        ║                                                                    ║ 
+        #                   > (Modo multijogador 1x1)                        # 
+        ║                      Modo multijogador caos                        ║ 
+        ║                          ver créditos                              ║ 
+        ║                                                                    ║ 
+        #                                                                    # 
+        ║  ©2026 JFLN Co.                                                    ║ 
+        ║                                                                    ║ 
+        ║                                           Pressione ESC para sair. ║ 
+        ╚═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╝
 
             """; 
-        while (true) {
+        String arte1x1 = arte;
+        String arteerro1 = """
+        ╔═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╗   
+        ║                                                                    ║
+        ║                                                                    ║   
+        ║         ████   ███  ████  ████  ███  ███   ███  ████  █████ ™      ║ 
+        #         █   █ █   █ █   █ █   █  █  █     █   █ █   █ █            # 
+        ║         ████  █████ ████  ████   █  █     █████ █   █ ████         ║ 
+        ║         █   █ █   █ █  █  █  █   █  █     █   █ █   █ █            ║ 
+        ║         ████  █   █ █   █ █   █ ███  ███  █   █ ████  █████        ║ 
+        #                                                                    # 
+        ║                                                                    ║ 
+        ║                    Selecione o modo de jogo:                       ║ 
+        ║                                                                    ║ 
+        #                    > (Modo multijogador 1x1)                       # 
+        ║                       Modo multijogador caos                       ║ 
+        ║                          ver créditos                              ║ 
+        ║                                                                    ║ 
+        #             *Erro, considere digitar uma tecla válida              # 
+        ║    ©2026 JFLN Co.                                                  ║ 
+        ║                                                                    ║ 
+        ║                                           Pressione ESC para sair. ║ 
+        ╚═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╝     
 
-            if(sair) {
-                break;
-            }
-            char teclaDigitada = lerTecla();
-            switch (teclaDigitada) {
+                                """;
+        String arteerro2 = """
 
-                case '\n':
-                    sair = true;
-                    break;
-                
-                case 's':
-                case 'S':
-                    arte = """
-                        
-    ╔═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╗
-    ║                                                                    ║                                                             
-    ║                                                                    ║   
-    ║         ████   ███  ████  ████  ███  ███   ███  ████  █████        ║ 
-    #         █   █ █   █ █   █ █   █  █  █     █   █ █   █ █            # 
-    ║         ████  █████ ████  ████   █  █     █████ █   █ ████         ║ 
-    ║         █   █ █   █ █  █  █  █   █  █     █   █ █   █ █            ║ 
-    ║         ████  █   █ █   █ █   █ ███  ███  █   █ ████  █████        ║ 
-    #                                                                    # 
-    ║                                                                    ║ 
-    ║                    Selecione o modo de jogo:                       ║ 
-    ║                                                                    ║ 
-    #                       Modo multijogador 1x1                        # 
-    ║                      (Modo multijogador caos)                      ║ 
-    ║                          ver créditos                              ║ 
-    ║                                                                    ║ 
-    #                                                                    # 
-    ║                                                                    ║ 
-    ║                                                                    ║ 
-    ║                                                                    ║ 
-    ╚═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╝
+        ╔═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╗   
+        ║                                                                    ║
+        ║                                                                    ║   
+        ║         ████   ███  ████  ████  ███  ███   ███  ████  █████ ™      ║ 
+        #         █   █ █   █ █   █ █   █  █  █     █   █ █   █ █            # 
+        ║         ████  █████ ████  ████   █  █     █████ █   █ ████         ║ 
+        ║         █   █ █   █ █  █  █  █   █  █     █   █ █   █ █            ║ 
+        ║         ████  █   █ █   █ █   █ ███  ███  █   █ ████  █████        ║ 
+        #                                                                    # 
+        ║                                                                    ║ 
+        ║                    Selecione o modo de jogo:                       ║ 
+        ║                                                                    ║ 
+        #                       Modo multijogador 1x1                        # 
+        ║                    > (Modo multijogador caos)                      ║ 
+        ║                          ver créditos                              ║ 
+        ║                                                                    ║ 
+        #             *Erro, considere digitar uma tecla válida              # 
+        ║    ©2026 JFLN Co.                                                  ║ 
+        ║                                                                    ║ 
+        ║                                           Pressione ESC para sair. ║ 
+        ╚═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╝ 
 
-                        """;
-                    break;
-                default:
-                    arte = """
-    ╔═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╗
-    ║                                                                    ║                                                             
-    ║                                                                    ║   
-    ║         ████   ███  ████  ████  ███  ███   ███  ████  █████        ║ 
-    #         █   █ █   █ █   █ █   █  █  █     █   █ █   █ █            # 
-    ║         ████  █████ ████  ████   █  █     █████ █   █ ████         ║ 
-    ║         █   █ █   █ █  █  █  █   █  █     █   █ █   █ █            ║ 
-    ║         ████  █   █ █   █ █   █ ███  ███  █   █ ████  █████        ║ 
-    #                                                                    # 
-    ║                                                                    ║ 
-    ║                    Selecione o modo de jogo:                       ║ 
-    ║                                                                    ║ 
-    #                      (Modo multijogador 1x1)                       # 
-    ║                       Modo multijogador caos                       ║ 
-    ║                          ver créditos                              ║ 
-    ║                                                                    ║ 
-    #             *Erro, considere digitar uma tecla válida              # 
-    ║                                                                    ║ 
-    ║                                                                    ║ 
-    ║                                                                    ║ 
-    ╚═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╝     
+        """;
+        String arteerro3 = """
+
+        ╔═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╗   
+        ║                                                                    ║
+        ║                                                                    ║   
+        ║         ████   ███  ████  ████  ███  ███   ███  ████  █████ ™      ║ 
+        #         █   █ █   █ █   █ █   █  █  █     █   █ █   █ █            # 
+        ║         ████  █████ ████  ████   █  █     █████ █   █ ████         ║ 
+        ║         █   █ █   █ █  █  █  █   █  █     █   █ █   █ █            ║ 
+        ║         ████  █   █ █   █ █   █ ███  ███  █   █ ████  █████        ║ 
+        #                                                                    # 
+        ║                                                                    ║ 
+        ║                    Selecione o modo de jogo:                       ║ 
+        ║                                                                    ║ 
+        #                       Modo multijogador 1x1                        # 
+        ║                       Modo multijogador caos                       ║ 
+        ║                         > (ver créditos)                           ║ 
+        ║                                                                    ║ 
+        #             *Erro, considere digitar uma tecla válida              # 
+        ║    ©2026 JFLN Co.                                                  ║ 
+        ║                                                                    ║ 
+        ║                                           Pressione ESC para sair. ║ 
+        ╚═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╝ 
+
+        """;
+        String artemultijogador = """
+                            
+        ╔═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╗
+        ║                                                                    ║                                                       
+        ║                                                                    ║   
+        ║         ████   ███  ████  ████  ███  ███   ███  ████  █████ ™      ║ 
+        #         █   █ █   █ █   █ █   █  █  █     █   █ █   █ █            # 
+        ║         ████  █████ ████  ████   █  █     █████ █   █ ████         ║ 
+        ║         █   █ █   █ █  █  █  █   █  █     █   █ █   █ █            ║ 
+        ║         ████  █   █ █   █ █   █ ███  ███  █   █ ████  █████        ║ 
+        #                                                                    # 
+        ║                                                                    ║ 
+        ║                    Selecione o modo de jogo:                       ║ 
+        ║                                                                    ║ 
+        #                       Modo multijogador 1x1                        # 
+        ║                    > (Modo multijogador caos)                      ║ 
+        ║                          ver créditos                              ║ 
+        ║                                                                    ║ 
+        #                                                                    # 
+        ║    ©2026 JFLN Co.                                                  ║ 
+        ║                                                                    ║ 
+        ║                                           Pressione ESC para sair. ║ 
+        ╚═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╝
 
                             """;
+        String artecreditos = """
+
+        ╔═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╗
+        ║                                                                    ║                                                       
+        ║                                                                    ║   
+        ║         ████   ███  ████  ████  ███  ███   ███  ████  █████ ™      ║ 
+        #         █   █ █   █ █   █ █   █  █  █     █   █ █   █ █            # 
+        ║         ████  █████ ████  ████   █  █     █████ █   █ ████         ║ 
+        ║         █   █ █   █ █  █  █  █   █  █     █   █ █   █ █            ║ 
+        ║         ████  █   █ █   █ █   █ ███  ███  █   █ ████  █████        ║ 
+        #                                                                    # 
+        ║                                                                    ║ 
+        ║                    Selecione o modo de jogo:                       ║ 
+        ║                                                                    ║ 
+        #                       Modo multijogador 1x1                        # 
+        ║                       Modo multijogador caos                       ║ 
+        ║                         > (ver créditos)                           ║ 
+        ║                                                                    ║ 
+        #                                                                    # 
+        ║    ©2026 JFLN Co.                                                  ║ 
+        ║                                                                    ║ 
+        ║                                           Pressione ESC para sair. ║ 
+        ╚═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╝     
+                        """;
+        
+        System.out.print(arte);
+        while (true) {
+
+            if(arte.equals(arte1x1)) {
+
+                int teclaDigitada = ControleTeclasJogoComJNA.obtemTeclaPressionada();
+                switch (teclaDigitada) {
+
+                    case '\n':
+                        comecarpartida = true;
+                        break;
+                    
+                    case 's':
+                    case 'S':
+                        arte = artemultijogador;    
+                        break;
+                    default:
+                        arte = arteerro1;
+                }
+            } else if (arte.equals(artemultijogador)) {
+
+                int teclaDigitada = ControleTeclasJogoComJNA.obtemTeclaPressionada();
+                switch (teclaDigitada) {
+
+                    case '\n':
+                        comecarpartida = true;
+                        break;
+                    case 's':
+                    case 'S':
+
+                        arte = artecreditos;
+                        break;
+                    case 'w':
+                    case 'W':
+
+                        arte = arte1x1;
+                        break;
+                    default:
+
+                    arte = arteerro2;
+                    break;
+                }
+            } else {
+
+                int teclaDigitada = ControleTeclasJogoComJNA.obtemTeclaPressionada();
+                switch(teclaDigitada) {
+                    
+                    case '\n':
+                        comecarpartida = true;
+                        break;
+                    case 'w':
+                    case 'W':
+                        arte = artemultijogador;
+                        break;
+                    default:
+                        arte = arteerro3;
+                        break;
+
+                }
             }
+            if (comecarpartida) {
+                return;
+            }
+            System.out.print(arte);
         }
-        return arte;
     }
     public static void main (String[]args) {
-
+        boolean comecarpartida = false;
+        imprimirInterface(comecarpartida);
     }
 }
