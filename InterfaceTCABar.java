@@ -1,8 +1,47 @@
-import java.util.Scanner;
 public class InterfaceTCABar {
-    
 
-    public static void imprimirInterface(boolean comecarpartida) {
+    //Variáveis a serem declaradas
+    public final static int numeroquenaodevesermencionado = 14-1;
+    static boolean comecar1x1 = false;
+    static boolean comecarmultijogador = false;
+    static boolean cenacreditos = false;
+    static boolean comecarpartida = false;
+    
+    public static void exibirCreditos() {
+
+        //todas as telas possíveis para o usuário
+        String creditos = """
+                
+        ╔═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╗
+        ║                           █                                        ║                                                     
+        ║                          █                                         ║   
+        ║            ███  ████  █████ ████  ███ █████  ███   ████            ║ 
+        #           █     █   █ █     █   █  █    █   █   █ █                # 
+        ║           █     ████  ████  █   █  █    █   █   █  ███             ║
+        ║           █     █  █  █     █   █  █    █   █   █     █            ║
+        ║            ███  █   █ █████ ████  ███   █    ███  ████             ║                                                      
+        #                                                                    #              
+        ║                                                                    ║ 
+        ║             Professores de Linguagens de Programação I:            ║ 
+        ║                                                                    ║ 
+        #                     Hebert Rausch Fernandes                        # 
+        ║                      Thiago Berticelli Ló                          ║ 
+        ║                                                                    ║ 
+        ║                                                                    ║ 
+        #                        Criadores do jogo:                          # 
+        ║                   José Fernando Lewandoski Neto                    ║ 
+        ║                                                                    ║ 
+        ║                                                                    ║ 
+        #                                                                    # 
+        ║                                                                    ║ 
+        ║                                                                    ║ 
+        ║                                       Pressione ESC para retornar. ║ 
+        ╚═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╝
+
+                """;
+        System.out.print(creditos);
+    }
+    public static void imprimirInterface() {
 
 
         String arte = """
@@ -19,7 +58,7 @@ public class InterfaceTCABar {
         ║                                                                    ║ 
         ║                    Selecione o modo de jogo:                       ║ 
         ║                                                                    ║ 
-        #                   > (Modo multijogador 1x1)                        # 
+        #                   --> (Modo multijogador 1x1)                      # 
         ║                      Modo multijogador caos                        ║ 
         ║                          ver créditos                              ║ 
         ║                                                                    ║ 
@@ -44,7 +83,7 @@ public class InterfaceTCABar {
         ║                                                                    ║ 
         ║                    Selecione o modo de jogo:                       ║ 
         ║                                                                    ║ 
-        #                    > (Modo multijogador 1x1)                       # 
+        #                    --> (Modo multijogador 1x1)                     # 
         ║                       Modo multijogador caos                       ║ 
         ║                          ver créditos                              ║ 
         ║                                                                    ║ 
@@ -70,7 +109,7 @@ public class InterfaceTCABar {
         ║                    Selecione o modo de jogo:                       ║ 
         ║                                                                    ║ 
         #                       Modo multijogador 1x1                        # 
-        ║                    > (Modo multijogador caos)                      ║ 
+        ║                  --> (Modo multijogador caos)                      ║ 
         ║                          ver créditos                              ║ 
         ║                                                                    ║ 
         #             *Erro, considere digitar uma tecla válida              # 
@@ -95,8 +134,8 @@ public class InterfaceTCABar {
         ║                    Selecione o modo de jogo:                       ║ 
         ║                                                                    ║ 
         #                       Modo multijogador 1x1                        # 
-        ║                       Modo multijogador caos                       ║ 
-        ║                         > (ver créditos)                           ║ 
+        ║                      Modo multijogador caos                        ║ 
+        ║                         --> (ver créditos)                         ║ 
         ║                                                                    ║ 
         #             *Erro, considere digitar uma tecla válida              # 
         ║    ©2026 JFLN Co.                                                  ║ 
@@ -120,7 +159,7 @@ public class InterfaceTCABar {
         ║                    Selecione o modo de jogo:                       ║ 
         ║                                                                    ║ 
         #                       Modo multijogador 1x1                        # 
-        ║                    > (Modo multijogador caos)                      ║ 
+        ║                  --> (Modo multijogador caos)                      ║ 
         ║                          ver créditos                              ║ 
         ║                                                                    ║ 
         #                                                                    # 
@@ -146,7 +185,7 @@ public class InterfaceTCABar {
         ║                                                                    ║ 
         #                       Modo multijogador 1x1                        # 
         ║                       Modo multijogador caos                       ║ 
-        ║                         > (ver créditos)                           ║ 
+        ║                        --> (ver créditos)                          ║ 
         ║                                                                    ║ 
         #                                                                    # 
         ║    ©2026 JFLN Co.                                                  ║ 
@@ -163,8 +202,10 @@ public class InterfaceTCABar {
                 int teclaDigitada = ControleTeclasJogoComJNA.obtemTeclaPressionada();
                 switch (teclaDigitada) {
 
+                    case numeroquenaodevesermencionado:
                     case '\n':
                         comecarpartida = true;
+                        comecar1x1 = true;
                         break;
                     
                     case 's':
@@ -179,6 +220,7 @@ public class InterfaceTCABar {
                 int teclaDigitada = ControleTeclasJogoComJNA.obtemTeclaPressionada();
                 switch (teclaDigitada) {
 
+                    case numeroquenaodevesermencionado:
                     case '\n':
                         comecarpartida = true;
                         break;
@@ -202,6 +244,7 @@ public class InterfaceTCABar {
                 int teclaDigitada = ControleTeclasJogoComJNA.obtemTeclaPressionada();
                 switch(teclaDigitada) {
                     
+                    case numeroquenaodevesermencionado:
                     case '\n':
                         comecarpartida = true;
                         break;
@@ -222,7 +265,6 @@ public class InterfaceTCABar {
         }
     }
     public static void main (String[]args) {
-        boolean comecarpartida = false;
-        imprimirInterface(comecarpartida);
+        imprimirInterface();
     }
 }
