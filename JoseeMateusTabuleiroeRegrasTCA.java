@@ -24,6 +24,21 @@ public class JoseeMateusTabuleiroeRegrasTCA {
 
 //Aqui vão ficar os métodos que serão ativados dentro do método main:
 
+    public static boolean lerValorBooleano() {
+        boolean booleano = LER.nextBoolean();
+        return booleano;
+    }
+
+    public static int lerValorInteiro() {
+        int numero = LER.nextInt();
+        return numero;
+    }
+
+    public static char lerLetra() {
+        char letra = LER.next().charAt(0);
+        return letra;
+    }
+
     public static void imprimirTabuleiro() {
         
         //Essa parte do código aq imprime a legenda
@@ -92,49 +107,90 @@ public class JoseeMateusTabuleiroeRegrasTCA {
         TABULEIRO [ControleTeclasJogoComJNA.posYJogador2] [ControleTeclasJogoComJNA.posXJogador2] = 2;
         boolean turnoJogador1 = true;
 
-        ControleTeclasJogoComJNA.limparConsole();
 
-        System.out.println("Use W, A, S, D para mover o personagem. Pressione ESC para sair.");
-        ControleTeclasJogoComJNA.esperarTecla();
-        while (true) {
+        while (true) {    
             
-            
-            if (verificarSeExisteVencedor() == true) {
-                
-                break;
-            } else {
-                
-                if (turnoJogador1) {
+            ControleTeclasJogoComJNA.limparConsole();
+            InterfaceTCABar.imprimirInterface();
+            if (InterfaceTCABar.cenacreditos) {
 
-                    ControleTeclasJogoComJNA.verificarMovimentacaoJogador1();
-                    if (ControleTeclasJogoComJNA.redesenhar) {
-
-                        ControleTeclasJogoComJNA.limparConsole();
-                        imprimirTabuleiro();
-                        ControleTeclasJogoComJNA.redesenhar = false;
-                    }
-                
-                    ControleTeclasJogoComJNA.esperar(100);
-                    turnoJogador1 = false;
-                } else {
-
-                    ControleTeclasJogoComJNA.verificarMovimentacaoJogador2();
-                    if (ControleTeclasJogoComJNA.redesenhar) {
-
-                        ControleTeclasJogoComJNA.limparConsole();
-                        imprimirTabuleiro();
-                        ControleTeclasJogoComJNA.redesenhar = false;
-                    }
-                    
-                    ControleTeclasJogoComJNA.esperar(100);
-                    turnoJogador1 = true;
-                }
+                InterfaceTCABar.exibirCreditos();
             }
-        }    
-    }
+            
+            if (InterfaceTCABar.comecar1x1) {
 
+            
+            
+                ControleTeclasJogoComJNA.esperarTecla();
+                while (true) {
+                    
+                    
+                    if (verificarSeExisteVencedor() == true) {
+                        
+                        break;
+                    } else {
+                        
+                        if (turnoJogador1) {
+
+                            ControleTeclasJogoComJNA.verificarMovimentacaoJogador1();
+                            if (ControleTeclasJogoComJNA.redesenhar) {
+
+                                ControleTeclasJogoComJNA.limparConsole();
+                                imprimirTabuleiro();
+                                ControleTeclasJogoComJNA.redesenhar = false;
+                            }
+                        
+                            ControleTeclasJogoComJNA.esperar(100);
+                            turnoJogador1 = false;
+                        } else {
+
+                            ControleTeclasJogoComJNA.verificarMovimentacaoJogador2();
+                            if (ControleTeclasJogoComJNA.redesenhar) {
+
+                                ControleTeclasJogoComJNA.limparConsole();
+                                imprimirTabuleiro();
+                                ControleTeclasJogoComJNA.redesenhar = false;
+                            }
+                            
+                            ControleTeclasJogoComJNA.esperar(100);
+                            turnoJogador1 = true;
+                        }
+                    }
+                }    
+                break;
+            } else if (InterfaceTCABar.comecarmultijogador) {
+
+                String recado = """
+
+            ╔═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╗
+            ║                                                                    ║                                                       
+            ║                                                                    ║   
+            ║         ████   ███  ████  ████  ███  ███   ███  ████  █████ ™      ║ 
+            #         █   █ █   █ █   █ █   █  █  █     █   █ █   █ █            # 
+            ║         ████  █████ ████  ████   █  █     █████ █   █ ████         ║ 
+            ║         █   █ █   █ █  █  █  █   █  █     █   █ █   █ █            ║ 
+            ║         ████  █   █ █   █ █   █ ███  ███  █   █ ████  █████        ║ 
+            #                                                                    # 
+            ║                                                                    ║ 
+            ║                    Selecione o modo de jogo:                       ║ 
+            ║                                                                    ║ 
+            #                       Modo multijogador 1x1                        # 
+            ║                    > (Modo multijogador caos)                      ║ 
+            ║                          ver créditos                              ║ 
+            ║                                                                    ║ 
+            #      * Sinto muito, mas esse modo de jogo ainda não foi concluído  # 
+            ║    ©2026 JFLN Co.                                                  ║ 
+            ║                                                                    ║ 
+            ║                                           Pressione ESC para sair. ║ 
+            ╚═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╝
+                """;
+                System.out.print(recado);
+
+            }
+        }
+    }
     public static boolean verificarSeExisteVencedor() {
-        
+            
         boolean algumVencedor = false;
         if (ControleTeclasJogoComJNA.posYJogador1 == 0 || ControleTeclasJogoComJNA.posYJogador2 == 8) {
 
@@ -143,4 +199,73 @@ public class JoseeMateusTabuleiroeRegrasTCA {
         return algumVencedor;
     }
 
+    public static void modoPosicionarParedes() {
+
+        verificarMovimentacaoDasParedes();
+    }
+
+    public static void verificarMovimentacaoDasParedes() {
+
+        boolean paredeHorizontal = true;
+        System.out.println("Para escolher o tipo de parede a ser selecionada, digite 1 (Horizonal) ou 0 (Vertical) ");
+        int parede = ControleTeclasJogoComJNA.obtemTeclaPressionada();
+        switch (parede) {
+            case 0:
+                paredeHorizontal = false;
+                break;
+            case 1:
+                paredeHorizontal = true;
+                break;
+        }
+        if (paredeHorizontal) {
+
+            System.out.println("Digite as coordenadas que você vai posicionar a sua parede.");
+            int posicaoY = lerValorInteiro();
+            char posicaoX1 = lerLetra();
+            char posicaoX2 = lerLetra();
+            while (true) {   
+                
+                if ( (int) posicaoX2 != (int) posicaoX1 - 1 && (int) posicaoX2 != (int) posicaoX1 + 1 ) {
+
+                    System.out.println("Por favor, digite os dois caracteres um do lado do outro!");
+                } else if ((int) posicaoX1 < 65 || (int) posicaoX1 > 74 || (int) posicaoX2 < 65 || (int) posicaoX2 > 74 || posicaoY < 1 || posicaoY > 9) {
+                    
+                    System.out.println("Por favor, digite uma casa dentro dos limites do mapa.");
+                } else {
+                    
+                    break;
+                }
+            }
+            posicaoY = posicaoY - 1;
+            posicaoX1 = posicaoX1 -= 65;
+            posicaoX2 = posicaoX2 -= 65;
+            PAREDESHORIZONTAIS [posicaoY] [posicaoX1] = true;
+            PAREDESHORIZONTAIS [posicaoY] [posicaoX2] = true;
+        } else {
+
+            System.out.println("Digite as coordenadas que você vai posicionar a sua parede.");
+            int posicaoY1 = lerValorInteiro();
+            int posicaoY2 = lerValorInteiro();
+            char posicaoX = lerLetra();
+            while (true) {
+
+                if (posicaoY2 - 1 != posicaoY1 && posicaoY2 + 1 != posicaoY1) {
+
+                    System.out.println("Por favor, digite os dois números um do lado do outro!");   
+                } else if ((int) posicaoX < 65 || (int) posicaoX > 74 || posicaoY1 < 1 || posicaoY2 > 9) {
+
+                    System.out.println("Por favor, digite uma casa dentro dos limites do mapa.");  
+                } else {
+
+                    break;
+                }
+            }
+            posicaoX = posicaoX -= 65;
+            posicaoY1 = posicaoY1 - 1;
+            posicaoY2 = posicaoY2 - 1;
+            PAREDESVERTICAIS [posicaoY1] [posicaoX] = true;
+            PAREDESVERTICAIS [posicaoY2] [posicaoX] = true;
+        }
+    }  
+    
 }
