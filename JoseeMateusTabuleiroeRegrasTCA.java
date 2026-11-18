@@ -24,24 +24,10 @@ public class JoseeMateusTabuleiroeRegrasTCA {
 
 //Aqui vão ficar os métodos que serão ativados dentro do método main:
 
-    public static boolean lerValorBooleano() {
-        boolean booleano = LER.nextBoolean();
-        return booleano;
-    }
-
-    public static int lerValorInteiro() {
-        int numero = LER.nextInt();
-        return numero;
-    }
-
-    public static char lerLetra() {
-        char letra = LER.next().charAt(0);
-        return letra;
-    }
-
     public static void imprimirTabuleiro() {
         
         //Essa parte do código aq imprime a legenda
+        WoW.mudarCor(WoW.AMARELO);
         int letra = 65;
         System.out.print("   ");
         for(int j = 0; j < 9; j++) {
@@ -65,11 +51,16 @@ public class JoseeMateusTabuleiroeRegrasTCA {
             for(int j = 0; j < 9; j++) {
                 char casadeinicio = ' ';
                 if(TABULEIRO[i][j] == 1) {
+                    
                     casadeinicio = '1';
+                    WoW.mudarCor(WoW.AZUL);
                 } else if (TABULEIRO[i][j] == 2) {
+                    
                     casadeinicio = '2';
+                    WoW.mudarCor(WoW.VERMELHO);
                 }
                 System.out.print(" " + casadeinicio + " ");
+                WoW.mudarCor(WoW.AMARELO);
 
                 //paredes usadas no jogo para impedir o inimigo
                 
@@ -105,7 +96,7 @@ public class JoseeMateusTabuleiroeRegrasTCA {
         
         TABULEIRO [ControleTeclasJogoComJNA.posYJogador1] [ControleTeclasJogoComJNA.posXJogador1] = 1;
         TABULEIRO [ControleTeclasJogoComJNA.posYJogador2] [ControleTeclasJogoComJNA.posXJogador2] = 2;
-
+        boolean turnojogador1 = true;
 
         while (true) {    
             
@@ -128,6 +119,7 @@ public class JoseeMateusTabuleiroeRegrasTCA {
                         
                         break;
                     } else {
+                        
                         
                         ControleTeclasJogoComJNA.verificarMovimentacaoJogador1();
                         if(ControleTeclasJogoComJNA.redesenhar) {
@@ -192,9 +184,21 @@ public class JoseeMateusTabuleiroeRegrasTCA {
         return algumVencedor;
     }
 
+    static int BarreirasJogador1 = 10;
+    static int BarreirasJogador2 = 10;
     public static void modoPosicionarParedes() {
 
-        verificarMovimentacaoDasParedes();
+        if (BarreirasJogador1 >= 1) {
+            
+            verificarMovimentacaoDasParedes();
+        } else if (BarreirasJogador2 >= 1) {
+
+            verificarMovimentacaoDasParedes(); 
+        } else {
+
+            System.out.println("Sinto muito, suas barreiras acabaram!");
+        }
+        
     }
 
     public static void verificarMovimentacaoDasParedes() {
@@ -263,46 +267,47 @@ public class JoseeMateusTabuleiroeRegrasTCA {
                         break;
                     }        
                     
-                    switch (posicaoY) {
+                switch (posicaoY) {
 
-                        case 49:
-                            casacorretaY = 0;
-                            break;
-                        case 50:
-                            casacorretaY = 1;
-                            break;
-                        case 51:
-                            casacorretaY = 2;
-                            break;
-                        case 52:
-                            casacorretaY = 3;
-                            break;
-                        case 53:
-                            casacorretaY = 4;
-                            break;
-                        case 54:
-                            casacorretaY = 5;
-                            break;
-                        case 55:
-                            casacorretaY = 6;
-                            break;
-                        case 56:
-                            casacorretaY = 7;
-                            break;
-                        case 57:
-                            casacorretaY = 8;
-                            break;
-                        default:
-                            System.out.println("Por favor, digite um número válido.");
-                            break;
-                    }
-                    if ((posicaoX < 73 && posicaoX > 65) || (posicaoX < 106 && posicaoX > 96) && posicaoY < 58 && posicaoY > 47) {
+                    case 49:
+                        casacorretaY = 0;
+                        break;
+                    case 50:
+                        casacorretaY = 1;
+                        break;
+                    case 51:
+                        casacorretaY = 2;
+                        break;
+                    case 52:
+                        casacorretaY = 3;
+                        break;
+                    case 53:
+                        casacorretaY = 4;
+                        break;
+                    case 54:
+                        casacorretaY = 5;
+                        break;
+                    case 55:
+                        casacorretaY = 6;
+                        break;
+                    case 56:
+                        casacorretaY = 7;
+                        break;
+                    case 57:
+                        casacorretaY = 8;
+                        break;
+                    default:
+                        System.out.println("Por favor, digite um número válido.");
+                        break;
+                }
+                
+                if ((posicaoX < 73 && posicaoX > 65) || (posicaoX < 106 && posicaoX > 96) && posicaoY < 58 && posicaoY > 47) {
 
-                        PAREDESHORIZONTAIS [casacorretaY][casacorretaX] = true;
-                        ControleTeclasJogoComJNA.limparConsole();
-                        imprimirTabuleiro();
-                    } 
-                    break;
+                    PAREDESHORIZONTAIS [casacorretaY][casacorretaX] = true;
+                    ControleTeclasJogoComJNA.limparConsole();
+                    imprimirTabuleiro();
+                } 
+                break;
             }      
         } else {
 
