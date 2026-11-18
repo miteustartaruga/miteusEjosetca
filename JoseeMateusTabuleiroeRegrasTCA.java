@@ -212,152 +212,188 @@ public class JoseeMateusTabuleiroeRegrasTCA {
         }
         if (paredeHorizontal) {
 
-            System.out.println("Digite as coordenadas que você vai posicionar a sua parede.");
-            System.out.println("Digite primeiramente dois caracteres, e depois, digite um número.");
             while (true) {
-                int posicaoX1 = ControleTeclasJogoComJNA.obtemTeclaPressionada();
-                int posicaoX2 = ControleTeclasJogoComJNA.obtemTeclaPressionada(); 
+                
+                System.out.println("Digite as coordenadas que você vai posicionar a sua parede. Digite a coordenada X");
+                int posicaoX = ControleTeclasJogoComJNA.obtemTeclaPressionada();
+                System.out.println("Agora digite a coordenada Y");
                 int posicaoY = ControleTeclasJogoComJNA.obtemTeclaPressionada();
-                int verificadorcasacorreta = 0;
-                switch(posicaoX1) {
+                int casacorretaX = 0;
+                int casacorretaY = 0;
+                switch(posicaoX) {
 
                     case 'a':
                     case 'A':
-                        verificadorcasacorreta = 65;
+                        casacorretaX = 0;
                         break;
                     case 'b':
                     case 'B':
-                        verificadorcasacorreta = 66;
+                        casacorretaX = 1;
                         break;
                     case 'c':
                     case 'C':
-                        verificadorcasacorreta = 67;
+                        casacorretaX = 2;
                         break;
                     case 'd':
                     case 'D':
-                        verificadorcasacorreta = 68;
+                        casacorretaX = 3;
                         break;
                     case 'e':
                     case 'E':
-                        verificadorcasacorreta = 69;
+                        casacorretaX = 4;
                         break;
                     case 'f':
                     case 'F':
-                        verificadorcasacorreta = 70;
+                        casacorretaX = 5;
                         break;
                     case 'g':
                     case 'G':
-                        verificadorcasacorreta = 71;
+                        casacorretaX = 6;
                         break;
                     case 'h':
                     case 'H':
-                        verificadorcasacorreta = 72;
+                        casacorretaX = 7;
                         break;
                     case 'i':
                     case 'I':
-                        verificadorcasacorreta = 73;
+                        casacorretaX = 8;
                         break;
                     default:
                         System.out.println("Por favor, digite um caractere válido.");
                         break;
-                    }       
+                    }        
+                    
+                    switch (posicaoY) {
 
-                    if (posicaoX2 == posicaoX1 -1 || posicaoX2 == posicaoX1 + 1) {
+                        case '1':
+                            casacorretaY = 0;
+                            break;
+                        case '2':
+                            casacorretaY = 1;
+                            break;
+                        case '3':
+                            casacorretaY = 2;
+                            break;
+                        case '4':
+                            casacorretaY = 3;
+                            break;
+                        case '5':
+                            casacorretaY = 4;
+                            break;
+                        case '6':
+                            casacorretaY = 5;
+                            break;
+                        case '7':
+                            casacorretaY = 6;
+                            break;
+                        case '8':
+                            casacorretaY = 7;
+                            break;
+                        case '9':
+                            casacorretaY = 8;
+                            break;
+                        default:
+                            System.out.println("Por favor, digite um número válido.");
+                            break;
+                    }
+                    if (posicaoX < 73 && posicaoX > 65 && posicaoY <= '9' && posicaoY > '0') {
 
-                    } else if (posicaoX1 > 73 || posicaoX1 < 65 || posicaoX2 > 73 || posicaoX2 < 65 || posicaoX1 == posicaoX2) {
-                        
-                        System.out.println("Por favor, digite um valor que seja diferente do valor digitado anteriormente\n e digite um valor dentro dos limites do Tabuleiro");
-                    }   
-                    switch(posicaoX2) {
-
-                    case 'a':
-                    case 'A':
-                        verificadorcasacorreta = 65;
+                        PAREDESHORIZONTAIS [posicaoY][posicaoX] = true;
                         break;
-                    case 'b':
-                    case 'B':
-                        verificadorcasacorreta = 66;
-                        break;
-                    case 'c':
-                    case 'C':
-                        verificadorcasacorreta = 67;
-                        break;
-                    case 'd':
-                    case 'D':
-                        verificadorcasacorreta = 68;
-                        break;
-                    case 'e':
-                    case 'E':
-                        verificadorcasacorreta = 69;
-                        break;
-                    case 'f':
-                    case 'F':
-                        verificadorcasacorreta = 70;
-                        break;
-                    case 'g':
-                    case 'G':
-                        verificadorcasacorreta = 71;
-                        break;
-                    case 'h':
-                    case 'H':
-                        verificadorcasacorreta = 72;
-                        break;
-                    case 'i':
-                    case 'I':
-                        verificadorcasacorreta = 73;
-                        break;
-                    default:
-                        System.out.println("Por favor, digite um caractere válido.");
-                        break;
-                    }     
-            }     
+                    }
+            }      
         } else {
 
-            System.out.println("Digite as coordenadas que você vai posicionar a sua parede.");
-            int posicaoX = ControleTeclasJogoComJNA.obtemTeclaPressionada();
-            int posicaoY1 = ControleTeclasJogoComJNA.obtemTeclaPressionada();
-            int posicaoY2 = ControleTeclasJogoComJNA.obtemTeclaPressionada();
-            switch(posicaoX) {
+            while (true) {
+                
+                System.out.println("Digite as coordenadas que você vai posicionar a sua parede. Digite a coordenada X");
+                int posicaoX = ControleTeclasJogoComJNA.obtemTeclaPressionada();
+                System.out.println("Agora digite a coordenada Y");
+                int posicaoY = ControleTeclasJogoComJNA.obtemTeclaPressionada();
+                int casacorretaX = 0;
+                int casacorretaY = 0;
+                switch(posicaoX) {
 
-                case 'a':
-                case 'A':
-               
-                    break;
-                case 'b':
-                case 'B':
+                    case 'a':
+                    case 'A':
+                        casacorretaX = 0;
+                        break;
+                    case 'b':
+                    case 'B':
+                        casacorretaX = 1;
+                        break;
+                    case 'c':
+                    case 'C':
+                        casacorretaX = 2;
+                        break;
+                    case 'd':
+                    case 'D':
+                        casacorretaX = 3;
+                        break;
+                    case 'e':
+                    case 'E':
+                        casacorretaX = 4;
+                        break;
+                    case 'f':
+                    case 'F':
+                        casacorretaX = 5;
+                        break;
+                    case 'g':
+                    case 'G':
+                        casacorretaX = 6;
+                        break;
+                    case 'h':
+                    case 'H':
+                        casacorretaX = 7;
+                        break;
+                    case 'i':
+                    case 'I':
+                        casacorretaX = 8;
+                        break;
+                    default:
+                        System.out.println("Por favor, digite um caractere válido.");
+                }
 
-                    break;
-                case 'c':
-                case 'C':
+                switch(posicaoY) {
 
-                    break;
-                case 'd':
-                case 'D':
+                    case '1':
+                        casacorretaY = 0;
+                        break;
+                    case '2':
+                        casacorretaY = 1;
+                        break;
+                    case '3':
+                        casacorretaY = 2;
+                        break;
+                    case '4':
+                        casacorretaY = 3;
+                        break;
+                    case '5':
+                        casacorretaY = 4;
+                        break;
+                    case '6':
+                        casacorretaY = 5;
+                        break;
+                    case '7':
+                        casacorretaY = 6;
+                        break;
+                    case '8':
+                        casacorretaY = 7;
+                        break;
+                    case '9':
+                        casacorretaY = 8;
+                        break;
+                    default:
+                        System.out.println("Por favor, digite um caractere válido.");
+                }
+            
+                if (posicaoX < 73 && posicaoX > 65 && posicaoY <= '9' && posicaoY > '0') {
 
-                    break;
-                case 'e':
-                case 'E':
-
-                    break;
-                case 'f':
-                case 'F':
-
-                    break;
-                case 'g':
-                case 'G':
-
-                    break;
-                case 'h':
-                case 'H':
-
-                    break;
-                case 'i':
-                case 'I':
-
-                    break;
-                default:
-                    System.out.println("Por favor, digite um caractere válido.");
+                        PAREDESVERTICAIS [posicaoY][posicaoX] = true;
+                        break;
+                }
             }
+        
         }  
     
     }
