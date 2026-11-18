@@ -180,7 +180,6 @@ public class ControleTeclasJogoComJNA {
                 case 'g':
                 case 'G':
                     JoseeMateusTabuleiroeRegrasTCA.modoPosicionarParedes();
-                    redesenhar = true;
                     break;
                 case 27: // Código ASCII para a tecla ESC
                     return; // Sai do loop e termina o programa
@@ -255,7 +254,6 @@ public class ControleTeclasJogoComJNA {
                 case 'g':
                 case 'G':
                     JoseeMateusTabuleiroeRegrasTCA.modoPosicionarParedes();
-                    redesenhar = true;
                     break;
                 case 27: // Código ASCII para a tecla ESC
                     return; // Sai do loop e termina o programa
