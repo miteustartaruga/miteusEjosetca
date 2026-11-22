@@ -152,103 +152,91 @@ public class ControleTeclasJogoComJNA {
     
     public static void verificarMovimentacaoJogador1() {
 
-        // Lógica para detectar o movimento
-        
-        while (true) {
-            
-            WoW.mudarCor(51);
-            limparConsole();
-            JoseeMateusTabuleiroeRegrasTCA.imprimirTabuleiro();
-            WoW.mudarCor(WoW.AZUL);
-            limparConsole();
-            JoseeMateusTabuleiroeRegrasTCA.imprimirTabuleiro();
-            if (pressionouTecla()) {
-                int tecla = obtemTeclaPressionada();
-                int antigoX = posXJogador1;
-                int antigoY = posYJogador1;
+        if (pressionouTecla()) {
+            int tecla = obtemTeclaPressionada();
+            int antigoX = posXJogador1;
+            int antigoY = posYJogador1;
 
-                switch (tecla) {
-                    case 'a':
-                    case 'A':
-                        posXJogador1--;
-                        if (JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador1] [posXJogador1] == JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador2] [posXJogador2]) {
+            switch (tecla) {
+                case 'a':
+                case 'A':
+                    posXJogador1--;
+                    if (JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador1] [posXJogador1] == JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador2] [posXJogador2]) {
 
-                            posXJogador1 = posXJogador1 - 2;
-                        }
-                        break;
-                    case 'd':
-                    case 'D':
-                        posXJogador1++;
-                        if (JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador1] [posXJogador1] == JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador2] [posXJogador2]) {
+                        posXJogador1 = posXJogador1 - 2;
+                    }
+                    break;
+                case 'd':
+                case 'D':
+                    posXJogador1++;
+                    if (JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador1] [posXJogador1] == JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador2] [posXJogador2]) {
 
                         posXJogador1 = posXJogador1 + 2; 
-                        }
-                        break;
-                    case 'w':
-                    case 'W':
-                        posYJogador1--;
-                        if (JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador1] [posXJogador1] == JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador2] [posXJogador2]) {
+                    }
+                    break;
+                case 'w':
+                case 'W':
+                    posYJogador1--;
+                    if (JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador1] [posXJogador1] == JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador2] [posXJogador2]) {
 
-                            posYJogador1 = posYJogador1 - 2;
-                        }
-                        break;
-                    case 's':
-                    case 'S':
-                        posYJogador1++;
-                        if (JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador1] [posXJogador1] == JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador2] [posXJogador2]) {
+                        posYJogador1 = posYJogador1 - 2;
+                    }
+                    break;
+                case 's':
+                case 'S':
+                    posYJogador1++;
+                    if (JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador1] [posXJogador1] == JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador2] [posXJogador2]) {
 
-                            posYJogador1 = posYJogador1 + 2;    
-                        }
-                        break;
-                    case 'g':
-                    case 'G':
-                        JoseeMateusTabuleiroeRegrasTCA.modoPosicionarParedes();
-                        JoseeMateusTabuleiroeRegrasTCA.BarreirasJogador1--;
-                        System.out.println("Número restante de barreiras do jogador 1: " + JoseeMateusTabuleiroeRegrasTCA.BarreirasJogador1);
-                        break;
-                    case 27: // Código ASCII para a tecla ESC
-                        return; // Sai do loop e termina o programa
-                }
-                
-                if(posXJogador1 == antigoX && posYJogador1 == antigoY) {
-                    return;
-                }
-                
-                boolean bloqueado = false;
-
-                // Não deixa o personagem sair da tela
-                if (posXJogador1 < 0) posXJogador1 = 0;
-                if (posXJogador1 > 8) posXJogador1 = 8;
-                if (posYJogador1 < 0) posYJogador1 = 0;
-                if (posYJogador1 > 8) posYJogador1 = 8;
-                    
-                // Não deixa o personagem passar por uma parede
-                if(posYJogador1 < antigoY && JoseeMateusTabuleiroeRegrasTCA.PAREDESHORIZONTAIS[posYJogador1][posXJogador1]) {
-                    bloqueado = true;
-                }
-                if (posYJogador1 > antigoY && JoseeMateusTabuleiroeRegrasTCA.PAREDESHORIZONTAIS[posYJogador1][posXJogador1]) {
-                    bloqueado = true;
-                }
-                if (posXJogador1 < antigoX && JoseeMateusTabuleiroeRegrasTCA.PAREDESVERTICAIS[posYJogador1][posXJogador1]) {
-                    bloqueado = true;
-                }
-                if (posXJogador1 > antigoX && JoseeMateusTabuleiroeRegrasTCA.PAREDESHORIZONTAIS[posYJogador1][posXJogador1]) {
-                    bloqueado = true;
-                }
-
-                if (bloqueado) {
-                    posXJogador1 = antigoX;
-                    posYJogador1 = antigoY;
-                } else {
-                    JoseeMateusTabuleiroeRegrasTCA.TABULEIRO[antigoY][antigoX] = 0;
-                    JoseeMateusTabuleiroeRegrasTCA.TABULEIRO[posYJogador1][posXJogador1] = 1;
-                    redesenhar = true;
-                }
-                tecla++;
-                
-            
+                        posYJogador1 = posYJogador1 + 2;    
+                    }
+                    break;
+                case 'g':
+                case 'G':
+                    JoseeMateusTabuleiroeRegrasTCA.modoPosicionarParedes();
+                    JoseeMateusTabuleiroeRegrasTCA.BarreirasJogador1--;
+                    System.out.println("Número restante de barreiras do jogador 1: " + JoseeMateusTabuleiroeRegrasTCA.BarreirasJogador1);
+                    break;
+                case 27: // Código ASCII para a tecla ESC
+                    return; // Sai do loop e termina o programa
             }
-            break;
+            
+            if(posXJogador1 == antigoX && posYJogador1 == antigoY) {
+                return;
+            }
+            
+            boolean bloqueado = false;
+
+            // Não deixa o personagem sair da tela
+            if (posXJogador1 < 0) posXJogador1 = 0;
+            if (posXJogador1 > 8) posXJogador1 = 8;
+            if (posYJogador1 < 0) posYJogador1 = 0;
+            if (posYJogador1 > 8) posYJogador1 = 8;
+                
+            // Não deixa o personagem passar por uma parede
+            if(posYJogador1 < antigoY && JoseeMateusTabuleiroeRegrasTCA.PAREDESHORIZONTAIS[posYJogador1][posXJogador1]) {
+                bloqueado = true;
+            }
+            if (posYJogador1 > antigoY && JoseeMateusTabuleiroeRegrasTCA.PAREDESHORIZONTAIS[posYJogador1][posXJogador1]) {
+                bloqueado = true;
+            }
+            if (posXJogador1 < antigoX && JoseeMateusTabuleiroeRegrasTCA.PAREDESVERTICAIS[posYJogador1][posXJogador1]) {
+                bloqueado = true;
+            }
+            if (posXJogador1 > antigoX && JoseeMateusTabuleiroeRegrasTCA.PAREDESHORIZONTAIS[posYJogador1][posXJogador1]) {
+                bloqueado = true;
+            }
+
+            if (bloqueado) {
+                posXJogador1 = antigoX;
+                posYJogador1 = antigoY;
+            } else {
+                JoseeMateusTabuleiroeRegrasTCA.TABULEIRO[antigoY][antigoX] = 0;
+                JoseeMateusTabuleiroeRegrasTCA.TABULEIRO[posYJogador1][posXJogador1] = 1;
+                redesenhar = true;
+            }
+            tecla++;
+            
+        
         }
     }
     
@@ -267,7 +255,7 @@ public class ControleTeclasJogoComJNA {
                     posXJogador2--;
                     if (JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador1] [posXJogador1] == JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador2] [posXJogador2]) {
 
-                        posXJogador2 = posXJogador2 - 2;
+                        posXJogador2 = posXJogador2 - 1;
                     }
                     break;
                 case 'l':
@@ -275,7 +263,7 @@ public class ControleTeclasJogoComJNA {
                     posXJogador2++;
                     if (JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador1] [posXJogador1] == JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador2] [posXJogador2]) {
 
-                        posXJogador2 = posXJogador2 + 2;
+                        posXJogador2 = posXJogador2 + 1;
                     }
                     break;
                 case 'i':
@@ -283,7 +271,7 @@ public class ControleTeclasJogoComJNA {
                     posYJogador2--;
                     if (JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador1] [posXJogador1] == JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador2] [posXJogador2]) {
 
-                        posYJogador2 = posYJogador2 - 2;    
+                        posYJogador2 = posYJogador2 - 1;    
                     }
                     break;
                 case 'k':
@@ -291,7 +279,7 @@ public class ControleTeclasJogoComJNA {
                     posYJogador2++;
                     if (JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador1] [posXJogador1] == JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador2] [posXJogador2]) {
 
-                        posYJogador2 = posYJogador2 + 2;    
+                        posYJogador2 = posYJogador2 + 1;    
                     }
                     break;
                 case 'g':

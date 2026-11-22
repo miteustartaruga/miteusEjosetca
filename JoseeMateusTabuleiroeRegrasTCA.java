@@ -106,20 +106,14 @@ public class JoseeMateusTabuleiroeRegrasTCA {
 
                 InterfaceTCABar.exibirCreditos();
             }
-            
-            if (InterfaceTCABar.comecar1x1) {
-
-            
-            
-                ControleTeclasJogoComJNA.esperarTecla();
-                while (true) {
-                    
-                    
+            while (true) {
+                
+                if (InterfaceTCABar.comecar1x1) {
+                        
                     if (verificarSeExisteVencedor() == true) {
                         
                         break;
                     } else {
-                        
                         
                         ControleTeclasJogoComJNA.verificarMovimentacaoJogador1();
                         if(ControleTeclasJogoComJNA.redesenhar) {
@@ -141,11 +135,10 @@ public class JoseeMateusTabuleiroeRegrasTCA {
 
                         ControleTeclasJogoComJNA.esperar(100);
                     }
-                }    
-                break;
-            } else if (InterfaceTCABar.comecarmultijogador) {
+                    
+                } else if (InterfaceTCABar.comecarmultijogador) {
 
-                String recado = """
+                    String recado = """
 
             ╔═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╗
             ║                                                                    ║                                                       
@@ -169,8 +162,10 @@ public class JoseeMateusTabuleiroeRegrasTCA {
             ║                                           Pressione ESC para sair. ║ 
             ╚═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╝
                 """;
-                System.out.print(recado);
-
+                    WoW.mudarCor(WoW.VERMELHO);
+                    InterfaceTCABar.comecarmultijogador = false;
+                    System.out.print(recado);
+                }
             }
         }
     }

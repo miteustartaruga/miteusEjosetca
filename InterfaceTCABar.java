@@ -11,7 +11,7 @@ public class InterfaceTCABar {
 
         // todas as telas possíveis para o usuário
         String creditos = """
-                \n\n\n
+
                 ╔═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╗
                 ║                           █                                        ║
                 ║                          █                                         ║
@@ -39,16 +39,14 @@ public class InterfaceTCABar {
                 ╚═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╝
 
                         """;
-        WoW.mudarCor(4);
+        WoW.mudarCor(83);
         System.out.print(creditos);
-        WoW.mudarCor(7);
     }
 
     public static void imprimirInterface() {
         int art = 1;
 
         String arte = """
-                \n\n\n
                 ╔═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╗
                 ║                                                                    ║
                 ║                                                                    ║
@@ -74,7 +72,6 @@ public class InterfaceTCABar {
                     """;
         String arte1x1 = arte;
         String arteerro1 = """
-                \n\n\n
                 ╔═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╗
                 ║                                                                    ║
                 ║                                                                    ║
@@ -99,7 +96,6 @@ public class InterfaceTCABar {
 
                                         """;
         String arteerro2 = """
-                \n\n\n
                 ╔═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╗
                 ║                                                                    ║
                 ║                                                                    ║
@@ -124,7 +120,6 @@ public class InterfaceTCABar {
 
                 """;
         String arteerro3 = """
-                \n\n\n
                 ╔═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╗
                 ║                                                                    ║
                 ║                                                                    ║
@@ -139,7 +134,7 @@ public class InterfaceTCABar {
                 ║                                                                    ║
                 #                       Modo multijogador 1x1                        #
                 ║                      Modo multijogador caos                        ║
-                ║                         --> (ver créditos)                         ║
+                ║                      --> (ver créditos)                            ║
                 ║                                                                    ║
                 #             *Erro, considere digitar uma tecla válida              #
                 ║    ©2026 JFLN MIT Co.                                              ║
@@ -149,7 +144,6 @@ public class InterfaceTCABar {
 
                 """;
         String artemultijogador = """
-                 \n\n\n
                 ╔═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╗
                 ║                                                                    ║
                 ║                                                                    ║
@@ -174,7 +168,6 @@ public class InterfaceTCABar {
 
                                     """;
         String artecreditos = """
-                \n\n\n
                 ╔═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╗
                 ║                                                                    ║
                 ║                                                                    ║
@@ -189,18 +182,16 @@ public class InterfaceTCABar {
                 ║                                                                    ║
                 #                       Modo multijogador 1x1                        #
                 ║                       Modo multijogador caos                       ║
-                ║                        --> (ver créditos)                          ║
+                ║                      --> (ver créditos)                            ║
                 ║                                                                    ║
                 #                                                                    #
                 ║    ©2026 JFLN MIT Co.                                              ║
                 ║                                                                    ║
                 ║                                           Pressione ESC para sair. ║
                 ╚═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╝
-                                """;
-        WoW.mudarCor(4);
+                                     """;
+        WoW.mudarCor(WoW.AZUL);
         System.out.print(arte);
-        WoW.mudarCor(7));
-
         while (!comecarpartida) {
 
             int teclaDigitada = ControleTeclasJogoComJNA.obtemTeclaPressionada();
@@ -209,16 +200,18 @@ public class InterfaceTCABar {
 
                 case numeroquenaodevesermencionado:
                 case '\n':
-                    if (art == 1 || art == 2) {
+                    comecarpartida = true;
+                    if(art == 1) {
+                        
                         comecar1x1 = true;
-                        comecarpartida = true;
-                        break;
-                    } else {
-                        cenacreditos = !cenacreditos;
-                        exibirCreditos();
-                        break;
-                    }
+                    } else if (art == 2) {
 
+                        comecarmultijogador = true;
+                    } else {
+
+                        cenacreditos = true;
+                    }       
+                    break;    
                 case 'w':
                 case 'W':
                     art--;
@@ -234,15 +227,30 @@ public class InterfaceTCABar {
                     }
                     break;
                 default:
+                    
                     arte = arteerro1;
+                    break;
             }
 
-            arte = switch (art) {
-                case 1 -> arte1x1;
-                case 2 -> artemultijogador;
-                case 3 -> artecreditos;
-                default -> arteerro1;
-            };
+            switch (art) {
+                
+                case 1:
+                    
+                    arte = arte1x1;
+                    break;
+                case 2:
+
+                    arte = artemultijogador;
+                    break;
+                case 3:
+
+                    arte = artecreditos;
+                    break;
+                default:
+
+                    arte = arteerro1;
+                    break;
+            }
 
             if(cenacreditos) {
                 continue;
@@ -250,16 +258,5 @@ public class InterfaceTCABar {
             System.out.print(arte);
         }
         return;
-    }
-
-    public static void limparConsole() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
-
-    public static void main(String[] args) {
-        limparConsole();
-        imprimirInterface();
-
     }
 }
