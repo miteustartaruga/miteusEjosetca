@@ -234,9 +234,7 @@ public class ControleTeclasJogoComJNA {
                 JoseeMateusTabuleiroeRegrasTCA.TABULEIRO[posYJogador1][posXJogador1] = 1;
                 redesenhar = true;
             }
-            tecla++;
-            
-        
+            TocarSom.tocarSom("sons/som_movimento_peca.wav", false);
         }
     }
     
@@ -335,11 +333,7 @@ public class ControleTeclasJogoComJNA {
                 JoseeMateusTabuleiroeRegrasTCA.TABULEIRO[posYJogador2][posXJogador2] = 2;
                 redesenhar = true;
             }
-            
-        
+            TocarSom.tocarSom("sons/som_movimento_peca.wav", false);
         }
     }
-
-
-
 }

@@ -90,9 +90,9 @@ public class TocarSom {
     }
     public static void main(String[] args) {
         // Peguei exemplos de: https://freewavesamples.com/
+
        
         // Um som de cada vez: cada um espera o anterior terminar
-        tocarSom("sons/Alesis-Sanctuary-QCard-Loose-Bell-C5.wav", true);
         tocarSom("sons/Ouch-4.wav", true);
 
         // Sem esperar: o gato e o prato tocam ao mesmo tempo
