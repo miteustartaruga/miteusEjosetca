@@ -12,12 +12,13 @@
 * Você deve rodar o código do jogo neste arquivo!!
 */
 //Toda a importação de material deve ficar aqui em baixo antes do public class:
-import java.util.Scanner;
+import javax.sound.sampled.*;
+import java.io.File;
+import java.io.IOException;
 public class JoseeMateusTabuleiroeRegrasTCA {
 
 //Qualquer tipo de variável declarada fora do método main deve ficar aqui:
-    
-   static Scanner LER = new Scanner(System.in);
+   
    static int[][] TABULEIRO = new int[9][9];
    static boolean[][] PAREDESHORIZONTAIS = new boolean[9][9];
    static boolean[][] PAREDESVERTICAIS = new boolean[9][9];
@@ -66,9 +67,11 @@ public class JoseeMateusTabuleiroeRegrasTCA {
                 
                 if (j < 8 && PAREDESVERTICAIS[i][j]) {
 
+                    WoW.mudarCor(165);
                     System.out.print("#");
                 } else {
 
+                    WoW.mudarCor(WoW.AMARELO);
                     System.out.print("|");
                 }
             }   
@@ -78,9 +81,11 @@ public class JoseeMateusTabuleiroeRegrasTCA {
             for (int j = 0; j < 9; j++) {
                 if (i < 8 && PAREDESHORIZONTAIS[i][j]) {
                     
+                    WoW.mudarCor(165);
                     System.out.print("===+");
                 } else {
 
+                    WoW.mudarCor(WoW.AMARELO);
                     System.out.print("---+");
                 }
             }
@@ -88,7 +93,13 @@ public class JoseeMateusTabuleiroeRegrasTCA {
         }
         System.out.println("Aperte 'G' para utilizar o modo de posicionar parede.");
     }
-
+// A padronização do 033 serve para mostrar para o terminal que o teclado vai digitar um comando, que em hexadecimal é 27.
+     public static void limparTela() {
+        System.out.print("\033[3J"); // apaga o histórico
+        System.out.print("\033[2J["); // apaga a tela
+        System.out.print("\033[H");  // volta o cursor para o canto (1, 1)
+        System.out.flush();          // garante que os comandos acima sejam enviados agora
+    }
 
 //A partir daqui fica o método main, basicamente o principal que sustenta o programa:
 
@@ -100,7 +111,8 @@ public class JoseeMateusTabuleiroeRegrasTCA {
 
         while (true) {    
             
-            ControleTeclasJogoComJNA.limparConsole();
+            limparTela();
+            TocarSom.tocarSom("Sons/musica_retro_tela_inico.wav", false);
             InterfaceTCABar.imprimirInterface();
             if (InterfaceTCABar.cenacreditos) {
 
@@ -118,7 +130,7 @@ public class JoseeMateusTabuleiroeRegrasTCA {
                         ControleTeclasJogoComJNA.verificarMovimentacaoJogador1();
                         if(ControleTeclasJogoComJNA.redesenhar) {
 
-                            ControleTeclasJogoComJNA.limparConsole();
+                            limparTela();
                             imprimirTabuleiro();
                             ControleTeclasJogoComJNA.redesenhar = false;
                         }
@@ -128,7 +140,7 @@ public class JoseeMateusTabuleiroeRegrasTCA {
                         ControleTeclasJogoComJNA.verificarMovimentacaoJogador2();
                         if(ControleTeclasJogoComJNA.redesenhar) {
 
-                            ControleTeclasJogoComJNA.limparConsole();
+                            limparTela();
                             imprimirTabuleiro();
                             ControleTeclasJogoComJNA.redesenhar = false;
                         }
@@ -166,6 +178,7 @@ public class JoseeMateusTabuleiroeRegrasTCA {
                     InterfaceTCABar.comecarmultijogador = false;
                     System.out.print(recado);
                 }
+            
             }
         }
     }
@@ -403,5 +416,15 @@ public class JoseeMateusTabuleiroeRegrasTCA {
         
         }  
     
+    }
+
+    public static void verificarSeHaMaisde8() {
+
+        for(int i = 0; i < 9; i++) {
+
+            for(int j = 0; j < 9; j++) {
+
+            }
+        }
     }
 }

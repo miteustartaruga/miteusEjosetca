@@ -191,10 +191,12 @@ public class InterfaceTCABar {
                 ╚═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╝
                                      """;
         WoW.mudarCor(WoW.AZUL);
+        JoseeMateusTabuleiroeRegrasTCA.limparTela();
         System.out.print(arte);
         while (!comecarpartida) {
 
             int teclaDigitada = ControleTeclasJogoComJNA.obtemTeclaPressionada();
+            TocarSom.tocarSom("sons/som_movimento_peca.wav", false);
                 
             switch (teclaDigitada) {
 
