@@ -12,9 +12,6 @@
 * Você deve rodar o código do jogo neste arquivo!!
 */
 //Toda a importação de material deve ficar aqui em baixo antes do public class:
-import javax.sound.sampled.*;
-import java.io.File;
-import java.io.IOException;
 public class JoseeMateusTabuleiroeRegrasTCA {
 
 //Qualquer tipo de variável declarada fora do método main deve ficar aqui:
@@ -22,6 +19,7 @@ public class JoseeMateusTabuleiroeRegrasTCA {
    static int[][] TABULEIRO = new int[9][9];
    static boolean[][] PAREDESHORIZONTAIS = new boolean[9][9];
    static boolean[][] PAREDESVERTICAIS = new boolean[9][9];
+   static boolean pararjogada = false;
 
 //Aqui vão ficar os métodos que serão ativados dentro do método main:
 
@@ -95,6 +93,7 @@ public class JoseeMateusTabuleiroeRegrasTCA {
     }
 // A padronização do 033 serve para mostrar para o terminal que o teclado vai digitar um comando, que em hexadecimal é 27.
      public static void limparTela() {
+        
         System.out.print("\033[3J"); // apaga o histórico
         System.out.print("\033[2J["); // apaga a tela
         System.out.print("\033[H");  // volta o cursor para o canto (1, 1)
@@ -114,6 +113,7 @@ public class JoseeMateusTabuleiroeRegrasTCA {
             limparTela();
             TocarSom.tocarSom("Sons/musica_retro_tela_inico.wav", false);
             InterfaceTCABar.imprimirInterface();
+            
             if (InterfaceTCABar.cenacreditos) {
 
                 InterfaceTCABar.exibirCreditos();
@@ -127,25 +127,51 @@ public class JoseeMateusTabuleiroeRegrasTCA {
                         break;
                     } else {
                         
-                        ControleTeclasJogoComJNA.verificarMovimentacaoJogador1();
-                        if(ControleTeclasJogoComJNA.redesenhar) {
+                        if(turnojogador1) {
+                            
+                            ControleTeclasJogoComJNA.verificarMovimentacaoJogador1();
+                            if(ControleTeclasJogoComJNA.jogardenovo) {
+                            
+                                while (true) {
 
-                            limparTela();
-                            imprimirTabuleiro();
-                            ControleTeclasJogoComJNA.redesenhar = false;
+                                    ControleTeclasJogoComJNA.verificarMovimentacaoJogador1();
+                                    if (pararjogada) {
+                                        break;
+                                    }
+                                }
+                            }
+                            if(ControleTeclasJogoComJNA.redesenhar) {
+
+                                limparTela();
+                                imprimirTabuleiro();
+                                ControleTeclasJogoComJNA.redesenhar = false;
+                            }
+                            
+                            turnojogador1 = false;
+                            ControleTeclasJogoComJNA.esperar(100);
+                        } else {   
+                            
+                            ControleTeclasJogoComJNA.verificarMovimentacaoJogador2();
+                            if(ControleTeclasJogoComJNA.jogardenovo) {
+
+                                while (true) {
+
+                                    ControleTeclasJogoComJNA.verificarMovimentacaoJogador2();
+                                    if (pararjogada) {
+                                        break;
+                                    }
+                                }
+                            }
+                            if(ControleTeclasJogoComJNA.redesenhar) {
+
+                                limparTela();
+                                imprimirTabuleiro();
+                                ControleTeclasJogoComJNA.redesenhar = false;
+                            }
+
+                            turnojogador1 = true;
+                            ControleTeclasJogoComJNA.esperar(100);
                         }
-                        
-                        ControleTeclasJogoComJNA.esperar(100);
-                        
-                        ControleTeclasJogoComJNA.verificarMovimentacaoJogador2();
-                        if(ControleTeclasJogoComJNA.redesenhar) {
-
-                            limparTela();
-                            imprimirTabuleiro();
-                            ControleTeclasJogoComJNA.redesenhar = false;
-                        }
-
-                        ControleTeclasJogoComJNA.esperar(100);
                     }
                     
                 } else if (InterfaceTCABar.comecarmultijogador) {
@@ -180,6 +206,19 @@ public class JoseeMateusTabuleiroeRegrasTCA {
                 }
             
             }
+        
+            if (ControleTeclasJogoComJNA.posYJogador1 == 0) {
+
+                WoW.mudarCor(87);
+                System.out.print(InterfaceTCABar.vitoria1);
+                break;
+
+            } else if (ControleTeclasJogoComJNA.posYJogador2 == 8) {
+
+                WoW.mudarCor(196);
+                System.out.print(InterfaceTCABar.vitoria2);
+                break;
+            }
         }
     }
     public static boolean verificarSeExisteVencedor() {
@@ -212,17 +251,21 @@ public class JoseeMateusTabuleiroeRegrasTCA {
 
     public static void verificarMovimentacaoDasParedes() {
 
-        boolean paredeHorizontal = true;
-        System.out.println("Para escolher o tipo de parede a ser selecionada, digite 1 (Horizonal) ou 0 (Vertical) ");
-        int parede = ControleTeclasJogoComJNA.obtemTeclaPressionada();
-        switch (parede) {
-            case 48:
-                paredeHorizontal = false;
-                break;
-            case 49:
-                paredeHorizontal = true;
-                break;
-        }
+        boolean paredeHorizontal = true;  
+            System.out.println("Para escolher o tipo de parede a ser selecionada, digite 1 (Horizonal) ou 0 (Vertical) ");
+            int parede = ControleTeclasJogoComJNA.obtemTeclaPressionada();
+            switch (parede) {
+                case 48:
+                    paredeHorizontal = false;
+                    break;
+                case 49:
+                    paredeHorizontal = true;
+                    break;
+                default:
+                    WoW.mudarCor(196); 
+                    System.out.println("Erro, digite 0 ou 1.");
+                    break;
+            }
         if (paredeHorizontal) {
 
             while (true) {
@@ -272,7 +315,9 @@ public class JoseeMateusTabuleiroeRegrasTCA {
                         casacorretaX = 8;
                         break;
                     default:
-                        System.out.println("Por favor, digite um caractere válido.");
+                    WoW.mudarCor(196);    
+                    System.out.println("Por favor, digite um caractere válido.");
+                    WoW.mudarCor(WoW.AMARELO);
                         break;
                     }        
                     
@@ -306,7 +351,9 @@ public class JoseeMateusTabuleiroeRegrasTCA {
                         casacorretaY = 8;
                         break;
                     default:
-                        System.out.println("Por favor, digite um número válido.");
+                    WoW.mudarCor(196);    
+                    System.out.println("Por favor, digite um número válido.");
+                    WoW.mudarCor(WoW.AMARELO);
                         break;
                 }
                 
@@ -368,7 +415,9 @@ public class JoseeMateusTabuleiroeRegrasTCA {
                         casacorretaX = 8;
                         break;
                     default:
+                        WoW.mudarCor(196);
                         System.out.println("Por favor, digite um caractere válido.");
+                        WoW.mudarCor(WoW.AMARELO);
                         break;
                 }
 
@@ -402,7 +451,9 @@ public class JoseeMateusTabuleiroeRegrasTCA {
                         casacorretaY = 8;
                         break;
                     default:
+                        WoW.mudarCor(196);
                         System.out.println("Por favor, digite um caractere válido.");
+                        WoW.mudarCor(WoW.AMARELO);
                         break;
                 }
             

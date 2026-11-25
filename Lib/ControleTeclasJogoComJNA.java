@@ -149,6 +149,7 @@ public class ControleTeclasJogoComJNA {
     static int posXJogador2 = 4;
     static int posYJogador2 = 0;
     static boolean redesenhar = true; 
+    static boolean jogardenovo = false;
     
     public static void verificarMovimentacaoJogador1() {
 
@@ -165,6 +166,7 @@ public class ControleTeclasJogoComJNA {
 
                         posXJogador1 = posXJogador1 - 1;
                     }
+                    JoseeMateusTabuleiroeRegrasTCA.pararjogada = true;
                     break;
                 case 'd':
                 case 'D':
@@ -173,6 +175,7 @@ public class ControleTeclasJogoComJNA {
 
                         posXJogador1 = posXJogador1 + 1; 
                     }
+                    JoseeMateusTabuleiroeRegrasTCA.pararjogada = true;
                     break;
                 case 'w':
                 case 'W':
@@ -181,6 +184,7 @@ public class ControleTeclasJogoComJNA {
 
                         posYJogador1 = posYJogador1 - 1;
                     }
+                    JoseeMateusTabuleiroeRegrasTCA.pararjogada = true;
                     break;
                 case 's':
                 case 'S':
@@ -189,6 +193,7 @@ public class ControleTeclasJogoComJNA {
 
                         posYJogador1 = posYJogador1 + 1;    
                     }
+                    JoseeMateusTabuleiroeRegrasTCA.pararjogada = true;
                     break;
                 case 'g':
                 case 'G':
@@ -198,6 +203,12 @@ public class ControleTeclasJogoComJNA {
                     break;
                 case 27: // Código ASCII para a tecla ESC
                     return; // Sai do loop e termina o programa
+                default:
+
+                    WoW.mudarCor(118);
+                    System.out.println("Não é a sua vez! Espere o seu oponente terminar de jogar");
+                    jogardenovo = true;
+                    break; 
             }
             
             if(posXJogador1 == antigoX && posYJogador1 == antigoY) {
@@ -255,6 +266,7 @@ public class ControleTeclasJogoComJNA {
 
                         posXJogador2 = posXJogador2 - 1;
                     }
+                    JoseeMateusTabuleiroeRegrasTCA.pararjogada = true;
                     break;
                 case 'l':
                 case 'L':
@@ -263,6 +275,7 @@ public class ControleTeclasJogoComJNA {
 
                         posXJogador2 = posXJogador2 + 1;
                     }
+                    JoseeMateusTabuleiroeRegrasTCA.pararjogada = true;
                     break;
                 case 'i':
                 case 'I':
@@ -271,6 +284,7 @@ public class ControleTeclasJogoComJNA {
 
                         posYJogador2 = posYJogador2 - 1;    
                     }
+                    JoseeMateusTabuleiroeRegrasTCA.pararjogada = true;
                     break;
                 case 'k':
                 case 'K':
@@ -279,6 +293,7 @@ public class ControleTeclasJogoComJNA {
 
                         posYJogador2 = posYJogador2 + 1;    
                     }
+                    JoseeMateusTabuleiroeRegrasTCA.pararjogada = true;
                     break;
                 case 'g':
                 case 'G':
@@ -288,6 +303,12 @@ public class ControleTeclasJogoComJNA {
                     break;
                 case 27: // Código ASCII para a tecla ESC
                     return; // Sai do loop e termina o programa
+                default:
+
+                    WoW.mudarCor(118);
+                    System.out.println("Não é a sua vez! Espere o seu oponente terminar de jogar");
+                    jogardenovo = true;
+                    break; 
                 }
             
             if(posXJogador2 == antigoX && posYJogador2 == antigoY) {
