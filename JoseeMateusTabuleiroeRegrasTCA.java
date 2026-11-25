@@ -196,6 +196,7 @@ public class JoseeMateusTabuleiroeRegrasTCA {
     static int BarreirasJogador2 = 10;
     public static void modoPosicionarParedes() {
 
+        verificarSeHaMaisde8();
         if (BarreirasJogador1 >= 1) {
             
             verificarMovimentacaoDasParedes();
@@ -420,11 +421,36 @@ public class JoseeMateusTabuleiroeRegrasTCA {
 
     public static void verificarSeHaMaisde8() {
 
+        int quantidadeparedesH = 0;
+        int quantidadeparedesV = 0;
         for(int i = 0; i < 9; i++) {
 
             for(int j = 0; j < 9; j++) {
 
+                if (PAREDESHORIZONTAIS[i] [j]) {
+
+                    quantidadeparedesH++;
+                } 
+                if (PAREDESVERTICAIS[i] [j]) {
+
+                    quantidadeparedesV++;
+                }
+                if (quantidadeparedesH == 9) {
+
+                    PAREDESHORIZONTAIS [i] [j] = false;
+                    WoW.mudarCor(196);
+                    System.out.println("Erro, é necessário que haja ao menos 1 saída para o fim do tabuleiro.");
+                    WoW.mudarCor(WoW.AMARELO);
+                }
+                if(quantidadeparedesV == 9) {
+
+                    PAREDESVERTICAIS [i] [j] = false;
+                    WoW.mudarCor(196);
+                    System.out.println("Erro, é necessário que haja ao menos 1 saída para o fim do tabuleiro.");
+                    WoW.mudarCor(WoW.AMARELO);
+                }
             }
+
         }
     }
 }
