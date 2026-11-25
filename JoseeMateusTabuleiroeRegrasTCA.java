@@ -20,6 +20,7 @@ public class JoseeMateusTabuleiroeRegrasTCA {
    static boolean[][] PAREDESHORIZONTAIS = new boolean[9][9];
    static boolean[][] PAREDESVERTICAIS = new boolean[9][9];
    static boolean pararjogada = false;
+   static int turnojogador = 0;
 
 //Aqui vão ficar os métodos que serão ativados dentro do método main:
 
@@ -106,12 +107,11 @@ public class JoseeMateusTabuleiroeRegrasTCA {
         
         TABULEIRO [ControleTeclasJogoComJNA.posYJogador1] [ControleTeclasJogoComJNA.posXJogador1] = 1;
         TABULEIRO [ControleTeclasJogoComJNA.posYJogador2] [ControleTeclasJogoComJNA.posXJogador2] = 2;
-        boolean turnojogador1 = true;
 
         while (true) {    
             
             limparTela();
-            TocarSom.tocarSom("Sons/musica_retro_tela_inico.wav", false);
+            TocarSom.tocarSom("sons/ musica_retro_tela_inico.wav", false);
             InterfaceTCABar.imprimirInterface();
             
             if (InterfaceTCABar.cenacreditos) {
@@ -127,14 +127,15 @@ public class JoseeMateusTabuleiroeRegrasTCA {
                         break;
                     } else {
                         
-                        if(turnojogador1) {
+                        if(turnojogador % 2 == 0) {
                             
-                            ControleTeclasJogoComJNA.verificarMovimentacaoJogador1();
+                            boolean podesomar = ControleTeclasJogoComJNA.verificarMovimentacaoJogador1();
+                            
                             if(ControleTeclasJogoComJNA.jogardenovo) {
                             
                                 while (true) {
 
-                                    ControleTeclasJogoComJNA.verificarMovimentacaoJogador1();
+                                    podesomar = ControleTeclasJogoComJNA.verificarMovimentacaoJogador1();
                                     if (pararjogada) {
                                         break;
                                     }
@@ -147,16 +148,19 @@ public class JoseeMateusTabuleiroeRegrasTCA {
                                 ControleTeclasJogoComJNA.redesenhar = false;
                             }
                             
-                            turnojogador1 = false;
+                            if (podesomar) {
+
+                                turnojogador++;
+                            }
                             ControleTeclasJogoComJNA.esperar(100);
                         } else {   
                             
-                            ControleTeclasJogoComJNA.verificarMovimentacaoJogador2();
+                            boolean podesomar = ControleTeclasJogoComJNA.verificarMovimentacaoJogador2();
                             if(ControleTeclasJogoComJNA.jogardenovo) {
 
                                 while (true) {
 
-                                    ControleTeclasJogoComJNA.verificarMovimentacaoJogador2();
+                                    podesomar = ControleTeclasJogoComJNA.verificarMovimentacaoJogador2();
                                     if (pararjogada) {
                                         break;
                                     }
@@ -169,7 +173,10 @@ public class JoseeMateusTabuleiroeRegrasTCA {
                                 ControleTeclasJogoComJNA.redesenhar = false;
                             }
 
-                            turnojogador1 = true;
+                            if(podesomar) {
+
+                                turnojogador++;
+                            }
                             ControleTeclasJogoComJNA.esperar(100);
                         }
                     }
