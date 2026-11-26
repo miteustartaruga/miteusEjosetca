@@ -56,42 +56,6 @@ public class InterfaceTCABar {
             ╚═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╝
      """;
 
-    public static void exibirCreditos() {
-
-        // todas as telas possíveis para o usuário
-        String creditos = """
-
-            ╔═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╗
-            ║                           █                                        ║
-            ║                          █                                         ║
-            ║            ███  ████  █████ ████  ███ █████  ███   ████            ║
-            #           █     █   █ █     █   █  █    █   █   █ █                #
-            ║           █     ████  ████  █   █  █    █   █   █  ███             ║
-            ║           █     █  █  █     █   █  █    █   █   █     █            ║
-            ║            ███  █   █ █████ ████  ███   █    ███  ████             ║
-            #                                                                    #
-            ║                                                                    ║
-            ║             Professores de Linguagens de Programação I:            ║
-            ║                                                                    ║
-            #                     Hebert Rausch Fernandes                        #
-            ║                      Thiago Berticelli Ló                          ║
-            ║                                                                    ║
-            ║                                                                    ║
-            #                        Criadores do jogo :                         #
-            ║                   José Fernando Lewandoski Neto                    ║
-            ║                 Mateus Fernando Roman De Oliveira                  ║
-            ║                                                                    ║
-            #                                                                    #
-            ║                                                                    ║
-            ║                                                                    ║
-            ║                                       Pressione ESC para retornar. ║
-            ╚═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╝
-
-        """;
-        WoW.mudarCor(83);
-        System.out.print(creditos);
-    }
-
     public static void imprimirInterface() {
         int art = 1;
         
@@ -114,7 +78,7 @@ public class InterfaceTCABar {
                 ║                          ver créditos                              ║
                 ║                                                                    ║
                 #                                                                    #
-                ║  ©2026 JFLN MIT Co.                                                ║
+                ║    ©2026 JFLN MIT Co.                                              ║
                 ║                                                                    ║
                 ║                                           Pressione ESC para sair. ║
                 ╚═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╝
@@ -312,4 +276,24 @@ public class InterfaceTCABar {
         }
         return;
     }
+    public static void telaSecretaCodigos() {
+        String telasecreta = """
+        
+        ╔═══*═══*═══*═══*═══*═══*═══*═══╗
+        ║                               ║
+        ║      Digite o código para     ║
+        ║        ver o segredo:         ║
+        #                               # 
+        ║        ______________         ║
+        ║                               ║
+        ║                               ║
+        #                               #
+        ║                               ║
+        ║                               ║
+        ║                               ║
+        ╚═══*═══*═══*═══*═══*═══*═══*═══╝
+
+                """;
+    }
+    WoW.mudarCor();
 }

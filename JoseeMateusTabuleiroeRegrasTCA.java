@@ -101,15 +101,58 @@ public class JoseeMateusTabuleiroeRegrasTCA {
         System.out.flush();          // garante que os comandos acima sejam enviados agora
     }
 
-//A partir daqui fica o método main, basicamente o principal que sustenta o programa:
+       public static void exibirCreditos() {
 
+        // todas as telas possíveis para o usuário
+        String creditos = """
+
+            ╔═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╗
+            ║                           █                                        ║
+            ║                          █                                         ║
+            ║            ███  ████  █████ ████  ███ █████  ███   ████            ║
+            #           █     █   █ █     █   █  █    █   █   █ █                #
+            ║           █     ████  ████  █   █  █    █   █   █  ███             ║
+            ║           █     █  █  █     █   █  █    █   █   █     █            ║
+            ║            ███  █   █ █████ ████  ███   █    ███  ████             ║
+            #                                                                    #
+            ║                                                                    ║
+            ║             Professores de Linguagens de Programação I:            ║
+            ║                                                                    ║
+            #                     Hebert Rausch Fernandes                        #
+            ║                      Thiago Berticelli Ló                          ║
+            ║                                                                    ║
+            ║                                                                    ║
+            #                        Criadores do jogo :                         #
+            ║                   José Fernando Lewandoski Neto                    ║
+            ║                 Mateus Fernando Roman De Oliveira                  ║
+            ║                                        Pressione ESC para retornar.║
+            ╚═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*═══*════╝
+
+        """;
+        WoW.mudarCor(83);
+        System.out.print(creditos);
+        while (true) {
+            int tecla = ControleTeclasJogoComJNA.obtemTeclaPressionada();
+            switch (tecla) {
+
+                case 27:
+                    return;
+                case 64:
+                    break;
+                default:
+                    WoW.mudarCor(196);
+                    System.out.println("Digite SOMENTE ESC para sair.");
+                    WoW.mudarCor(WoW.AZUL);
+                    break;
+            }
+        }
+    }
+//A partir daqui fica o método main, basicamente o principal que sustenta o programa:
     public static void main (String[]args) {
         
         TABULEIRO [ControleTeclasJogoComJNA.posYJogador1] [ControleTeclasJogoComJNA.posXJogador1] = 1;
         TABULEIRO [ControleTeclasJogoComJNA.posYJogador2] [ControleTeclasJogoComJNA.posXJogador2] = 2;
-        int teclacreditos = 0;
-        boolean imprimir = false;
-        boolean valor = false;
+
         while (true) {    
             
             
@@ -118,7 +161,7 @@ public class JoseeMateusTabuleiroeRegrasTCA {
             
             if (InterfaceTCABar.cenacreditos) {
 
-                InterfaceTCABar.exibirCreditos();
+                exibirCreditos();
             }
 
             while (true) {
@@ -262,20 +305,27 @@ public class JoseeMateusTabuleiroeRegrasTCA {
     public static void verificarMovimentacaoDasParedes() {
 
         boolean paredeHorizontal = true;  
-            System.out.println("Para escolher o tipo de parede a ser selecionada, digite 1 (Horizonal) ou 0 (Vertical) ");
-            int parede = ControleTeclasJogoComJNA.obtemTeclaPressionada();
-            switch (parede) {
-                case 48:
-                    paredeHorizontal = false;
+        WoW.mudarCor(195);    
+        System.out.println("Para escolher o tipo de parede a ser selecionada, digite 1 (Horizonal) ou 0 (Vertical) ");
+            while (true) {   
+                int parede = ControleTeclasJogoComJNA.obtemTeclaPressionada(); 
+                switch (parede) {
+                    case 48:
+                        paredeHorizontal = false;
+                        break;
+                    case 49:
+                        paredeHorizontal = true;
+                        break;
+                    default:
+                        WoW.mudarCor(196); 
+                        System.out.println("Erro, digite 0 ou 1.");
+                        WoW.mudarCor(WoW.AMARELO);
+                        break;
+                }
+                if (parede == 48 || parede == 49) {
+                    
                     break;
-                case 49:
-                    paredeHorizontal = true;
-                    break;
-                default:
-                    WoW.mudarCor(196); 
-                    System.out.println("Erro, digite 0 ou 1.");
-                    WoW.mudarCor(WoW.AMARELO);
-                    break;
+                }
             }
         if (paredeHorizontal) {
 
@@ -283,7 +333,9 @@ public class JoseeMateusTabuleiroeRegrasTCA {
                 
                 System.out.println("Digite as coordenadas que você vai posicionar a sua parede. Digite a coordenada X");
                 int posicaoX = ControleTeclasJogoComJNA.obtemTeclaPressionada();
+                WoW.mudarCor(159);
                 System.out.println("Agora digite a coordenada Y");
+                WoW.mudarCor(WoW.AMARELO);
                 int posicaoY = ControleTeclasJogoComJNA.obtemTeclaPressionada();
                 int casacorretaX = 0;
                 int casacorretaY = 0;
@@ -515,4 +567,5 @@ public class JoseeMateusTabuleiroeRegrasTCA {
 
         }
     }
+
 }
