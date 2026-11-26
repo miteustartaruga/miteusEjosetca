@@ -323,6 +323,7 @@ public class InterfaceTCABar {
             if(cenacreditos) {
                 continue;
             }
+            JoseeMateusTabuleiroeRegrasTCA.limparTela();
             System.out.print(arte);
         }
         return;
