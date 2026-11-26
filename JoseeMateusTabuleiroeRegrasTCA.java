@@ -64,7 +64,7 @@ public class JoseeMateusTabuleiroeRegrasTCA {
 
                 //paredes usadas no jogo para impedir o inimigo
                 
-                if (j < 8 && PAREDESVERTICAIS[i][j]) {
+                if (j < 9 && PAREDESVERTICAIS[i][j]) {
 
                     WoW.mudarCor(165);
                     System.out.print("#");
@@ -78,7 +78,7 @@ public class JoseeMateusTabuleiroeRegrasTCA {
                 
             System.out.print("   +");
             for (int j = 0; j < 9; j++) {
-                if (i < 8 && PAREDESHORIZONTAIS[i][j]) {
+                if (i < 9 && PAREDESHORIZONTAIS[i][j]) {
                     
                     WoW.mudarCor(165);
                     System.out.print("===+");
@@ -110,8 +110,8 @@ public class JoseeMateusTabuleiroeRegrasTCA {
 
         while (true) {    
             
-            limparTela();
-            TocarSom.tocarSom("sons/ musica_retro_tela_inico.wav", false);
+            
+            TocarSom.tocarSom("sons/musica_retro_tela_inicio.wav", false);
             InterfaceTCABar.imprimirInterface();
             
             if (InterfaceTCABar.cenacreditos) {
@@ -119,9 +119,9 @@ public class JoseeMateusTabuleiroeRegrasTCA {
                 InterfaceTCABar.exibirCreditos();
             }
             while (true) {
-                
+
                 if (InterfaceTCABar.comecar1x1) {
-                        
+                    
                     if (verificarSeExisteVencedor() == true) {
                         
                         break;
@@ -129,16 +129,14 @@ public class JoseeMateusTabuleiroeRegrasTCA {
                         
                         if(turnojogador % 2 == 0) {
                             
-                            boolean podesomar = ControleTeclasJogoComJNA.verificarMovimentacaoJogador1();
-                            
-                            if(ControleTeclasJogoComJNA.jogardenovo) {
-                            
-                                while (true) {
-
-                                    podesomar = ControleTeclasJogoComJNA.verificarMovimentacaoJogador1();
-                                    if (pararjogada) {
-                                        break;
-                                    }
+                            boolean jogadarealizada = ControleTeclasJogoComJNA.verificarMovimentacaoJogador1();
+                            while (true) {
+                                if(ControleTeclasJogoComJNA.jogardenovo) {
+                                    
+                                    jogadarealizada = ControleTeclasJogoComJNA.verificarMovimentacaoJogador1();
+                                } else {
+                                    
+                                    break;
                                 }
                             }
                             if(ControleTeclasJogoComJNA.redesenhar) {
@@ -147,23 +145,20 @@ public class JoseeMateusTabuleiroeRegrasTCA {
                                 imprimirTabuleiro();
                                 ControleTeclasJogoComJNA.redesenhar = false;
                             }
-                            
-                            if (podesomar) {
-
+                            if (jogadarealizada) {    
                                 turnojogador++;
                             }
                             ControleTeclasJogoComJNA.esperar(100);
                         } else {   
                             
-                            boolean podesomar = ControleTeclasJogoComJNA.verificarMovimentacaoJogador2();
-                            if(ControleTeclasJogoComJNA.jogardenovo) {
-
-                                while (true) {
-
-                                    podesomar = ControleTeclasJogoComJNA.verificarMovimentacaoJogador2();
-                                    if (pararjogada) {
-                                        break;
-                                    }
+                            boolean jogadarealizada = ControleTeclasJogoComJNA.verificarMovimentacaoJogador2();
+                            while (true) {
+                                if(ControleTeclasJogoComJNA.jogardenovo) {
+                                    
+                                    jogadarealizada = ControleTeclasJogoComJNA.verificarMovimentacaoJogador2();
+                                } else {
+                                    
+                                    break;
                                 }
                             }
                             if(ControleTeclasJogoComJNA.redesenhar) {
@@ -172,9 +167,7 @@ public class JoseeMateusTabuleiroeRegrasTCA {
                                 imprimirTabuleiro();
                                 ControleTeclasJogoComJNA.redesenhar = false;
                             }
-
-                            if(podesomar) {
-
+                            if (jogadarealizada) {
                                 turnojogador++;
                             }
                             ControleTeclasJogoComJNA.esperar(100);
@@ -216,12 +209,14 @@ public class JoseeMateusTabuleiroeRegrasTCA {
         
             if (ControleTeclasJogoComJNA.posYJogador1 == 0) {
 
+                TocarSom.tocarSom("sons/trilha_vitoria_retro (1).wav", false);
                 WoW.mudarCor(87);
                 System.out.print(InterfaceTCABar.vitoria1);
                 break;
 
             } else if (ControleTeclasJogoComJNA.posYJogador2 == 8) {
 
+                TocarSom.tocarSom("sons/trilha_vitoria_retro (1).wav", false);
                 WoW.mudarCor(196);
                 System.out.print(InterfaceTCABar.vitoria2);
                 break;
@@ -242,13 +237,18 @@ public class JoseeMateusTabuleiroeRegrasTCA {
     static int BarreirasJogador2 = 10;
     public static void modoPosicionarParedes() {
 
-        verificarSeHaMaisde8();
         if (BarreirasJogador1 >= 1) {
             
             verificarMovimentacaoDasParedes();
+            verificarSeHaMaisde8();
+            BarreirasJogador1--;
+            System.out.println("Número restante de barreiras do jogador 1: " + BarreirasJogador1);
         } else if (BarreirasJogador2 >= 1) {
 
-            verificarMovimentacaoDasParedes(); 
+            verificarMovimentacaoDasParedes();
+            verificarSeHaMaisde8();
+            BarreirasJogador2--; 
+                        System.out.println("Número restante de barreiras do jogador 2: " + BarreirasJogador2);
         } else {
 
             System.out.println("Sinto muito, suas barreiras acabaram!");
@@ -271,6 +271,7 @@ public class JoseeMateusTabuleiroeRegrasTCA {
                 default:
                     WoW.mudarCor(196); 
                     System.out.println("Erro, digite 0 ou 1.");
+                    WoW.mudarCor(WoW.AMARELO);
                     break;
             }
         if (paredeHorizontal) {
@@ -364,10 +365,10 @@ public class JoseeMateusTabuleiroeRegrasTCA {
                         break;
                 }
                 
-                if ((posicaoX < 73 && posicaoX > 65) || (posicaoX < 106 && posicaoX > 96) && posicaoY < 58 && posicaoY > 47) {
+                if ((posicaoX >= 65 && posicaoX <= 73) || (posicaoX >= 96 && posicaoX <= 106) && posicaoY >= 47 && posicaoY <= 58) {
 
                     PAREDESHORIZONTAIS [casacorretaY][casacorretaX] = true;
-                    ControleTeclasJogoComJNA.limparConsole();
+                    limparTela();
                     imprimirTabuleiro();
                 } 
                 break;
@@ -464,10 +465,10 @@ public class JoseeMateusTabuleiroeRegrasTCA {
                         break;
                 }
             
-                if ((posicaoX < 73 && posicaoX > 65) || (posicaoX < 106 && posicaoX > 96) && posicaoY < 58 && posicaoY > 47) {
+                if ((posicaoX >= 65 && posicaoX <= 73) || (posicaoX >= 96 && posicaoX <= 106) && posicaoY >= 47 && posicaoY <= 58) {
 
                     PAREDESVERTICAIS [casacorretaY][casacorretaX] = true;
-                    ControleTeclasJogoComJNA.limparConsole();
+                    limparTela();
                     imprimirTabuleiro();
                 }
                 break;

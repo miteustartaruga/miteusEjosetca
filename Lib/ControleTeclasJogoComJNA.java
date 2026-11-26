@@ -125,6 +125,7 @@ public class ControleTeclasJogoComJNA {
         
         JoseeMateusTabuleiroeRegrasTCA.TABULEIRO[posYJogador1][posXJogador1] = 1;
         JoseeMateusTabuleiroeRegrasTCA.TABULEIRO[posYJogador2][posXJogador2] = 2;
+
         
         limparConsole();
         System.out.println("Mova o personagem 1 com W, A, S, D. ESC para sair.");
@@ -132,7 +133,7 @@ public class ControleTeclasJogoComJNA {
         
         while (true) {
             
-            verificarMovimentacaoJogador1();
+
             if (redesenhar) {
                 
                 limparConsole();
@@ -150,62 +151,57 @@ public class ControleTeclasJogoComJNA {
     static int posYJogador2 = 0;
     static boolean redesenhar = true; 
     static boolean jogardenovo = false;
+
     
     public static boolean verificarMovimentacaoJogador1() {
 
-        boolean podesomar = false;
+        jogardenovo = false;
+        // Lógica para detectar o movimento
         if (pressionouTecla()) {
             int tecla = obtemTeclaPressionada();
             int antigoX = posXJogador1;
             int antigoY = posYJogador1;
 
             switch (tecla) {
-                case 97:
-                case 65:
+                case 'a':
+                case 'A':
                     posXJogador1--;
                     if (JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador1] [posXJogador1] == JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador2] [posXJogador2]) {
 
                         posXJogador1 = posXJogador1 - 1;
                     }
-                    JoseeMateusTabuleiroeRegrasTCA.pararjogada = true;
-                    podesomar = true;
+
                     break;
-                case 100:
-                case 68:
+                case 'd':
+                case 'D':
                     posXJogador1++;
                     if (JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador1] [posXJogador1] == JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador2] [posXJogador2]) {
 
                         posXJogador1 = posXJogador1 + 1; 
                     }
-                    JoseeMateusTabuleiroeRegrasTCA.pararjogada = true;
-                    podesomar = true;
+
                     break;
-                case 194:
-                case 87:
+                case 'w':
+                case 'W':
                     posYJogador1--;
                     if (JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador1] [posXJogador1] == JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador2] [posXJogador2]) {
 
                         posYJogador1 = posYJogador1 - 1;
                     }
-                    JoseeMateusTabuleiroeRegrasTCA.pararjogada = true;
-                    podesomar = true;
+
                     break;
-                case 190:
-                case 83:
+                case 's':
+                case 'S':
                     posYJogador1++;
                     if (JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador1] [posXJogador1] == JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador2] [posXJogador2]) {
 
                         posYJogador1 = posYJogador1 + 1;    
                     }
-                    JoseeMateusTabuleiroeRegrasTCA.pararjogada = true;
-                    podesomar = true;
+
                     break;
-                case 103:
-                case 71:
+                case 'g':
+                case 'G':
                     JoseeMateusTabuleiroeRegrasTCA.modoPosicionarParedes();
-                    JoseeMateusTabuleiroeRegrasTCA.BarreirasJogador1--;
-                    System.out.println("Número restante de barreiras do jogador 1: " + JoseeMateusTabuleiroeRegrasTCA.BarreirasJogador1);
-                    podesomar = true;
                     break;
                 case 27: // Código ASCII para a tecla ESC
                      // Sai do loop e termina o programa
@@ -213,8 +209,9 @@ public class ControleTeclasJogoComJNA {
 
                     WoW.mudarCor(118);
                     System.out.println("Não é a sua vez! Espere o seu oponente terminar de jogar");
+                    WoW.mudarCor(WoW.AMARELO);
                     jogardenovo = true;
-                    break; 
+                    return false; 
             }
             
             
@@ -227,35 +224,43 @@ public class ControleTeclasJogoComJNA {
             if (posYJogador1 > 8) posYJogador1 = 8;
                 
             // Não deixa o personagem passar por uma parede
-            if(posYJogador1 < antigoY && JoseeMateusTabuleiroeRegrasTCA.PAREDESHORIZONTAIS[posYJogador1][posXJogador1]) {
+            if(JoseeMateusTabuleiroeRegrasTCA.PAREDESHORIZONTAIS[posYJogador1][posXJogador1]) {
+                
                 bloqueado = true;
             }
-            if (posYJogador1 > antigoY && JoseeMateusTabuleiroeRegrasTCA.PAREDESHORIZONTAIS[posYJogador1][posXJogador1]) {
+            if (JoseeMateusTabuleiroeRegrasTCA.PAREDESHORIZONTAIS[posYJogador1][posXJogador1]) {
+                
                 bloqueado = true;
             }
-            if (posXJogador1 < antigoX && JoseeMateusTabuleiroeRegrasTCA.PAREDESVERTICAIS[posYJogador1][posXJogador1]) {
+            if (JoseeMateusTabuleiroeRegrasTCA.PAREDESVERTICAIS[posYJogador1][posXJogador1]) {
+                
                 bloqueado = true;
             }
-            if (posXJogador1 > antigoX && JoseeMateusTabuleiroeRegrasTCA.PAREDESHORIZONTAIS[posYJogador1][posXJogador1]) {
+            if (JoseeMateusTabuleiroeRegrasTCA.PAREDESHORIZONTAIS[posYJogador1][posXJogador1]) {
+                
                 bloqueado = true;
             }
 
             if (bloqueado) {
+                
                 posXJogador1 = antigoX;
                 posYJogador1 = antigoY;
+                JoseeMateusTabuleiroeRegrasTCA.turnojogador--;
             } else {
+                
                 JoseeMateusTabuleiroeRegrasTCA.TABULEIRO[antigoY][antigoX] = 0;
                 JoseeMateusTabuleiroeRegrasTCA.TABULEIRO[posYJogador1][posXJogador1] = 1;
                 redesenhar = true;
             }
             TocarSom.tocarSom("sons/som_movimento_peca.wav", false);
+            return true;
         }
-        return podesomar;
+        return false;
     }
     
     public static boolean verificarMovimentacaoJogador2() {
 
-        boolean podesomar = false;
+        jogardenovo = false;
         // Lógica para detectar o movimento
         if (pressionouTecla()) {
             int tecla = obtemTeclaPressionada();
@@ -264,60 +269,55 @@ public class ControleTeclasJogoComJNA {
             int antigoY = posYJogador2;
 
             switch (tecla) {
-                case 106:
-                case 74:
+                case 'j':
+                case 'J':
                     posXJogador2--;
                     if (JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador1] [posXJogador1] == JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador2] [posXJogador2]) {
 
                         posXJogador2 = posXJogador2 - 1;
                     }
-                    JoseeMateusTabuleiroeRegrasTCA.pararjogada = true;
-                    podesomar = true;
+
                     break;
-                case 108:
-                case 76:
+                case 'l':
+                case 'L':
                     posXJogador2++;
                     if (JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador1] [posXJogador1] == JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador2] [posXJogador2]) {
 
                         posXJogador2 = posXJogador2 + 1;
                     }
-                    JoseeMateusTabuleiroeRegrasTCA.pararjogada = true;
-                    podesomar = true;
+
                     break;
-                case 105:
-                case 73:
+                case 'i':
+                case 'I':
                     posYJogador2--;
                     if (JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador1] [posXJogador1] == JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador2] [posXJogador2]) {
 
                         posYJogador2 = posYJogador2 - 1;    
                     }
-                    JoseeMateusTabuleiroeRegrasTCA.pararjogada = true;
-                    podesomar = true;
+
                     break;
-                case 107:
-                case 75:
+                case 'k':
+                case 'K':
                     posYJogador2++;
                     if (JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador1] [posXJogador1] == JoseeMateusTabuleiroeRegrasTCA.TABULEIRO [posYJogador2] [posXJogador2]) {
 
                         posYJogador2 = posYJogador2 + 1;    
                     }
-                    JoseeMateusTabuleiroeRegrasTCA.pararjogada = true;
-                    podesomar = true;
+
                     break;
-                case 103:
-                case 71:
+                case 'g':
+                case 'G':
                     JoseeMateusTabuleiroeRegrasTCA.modoPosicionarParedes();
-                    JoseeMateusTabuleiroeRegrasTCA.BarreirasJogador2--;
-                    System.out.println("Número restante de barreiras do jogador 2: " + JoseeMateusTabuleiroeRegrasTCA.BarreirasJogador2);
                     break;
                 case 27: // Código ASCII para a tecla ESC
-                         // Sai do loop e termina o programa
+                     // Sai do loop e termina o programa
                 default:
 
                     WoW.mudarCor(118);
                     System.out.println("Não é a sua vez! Espere o seu oponente terminar de jogar");
+                    WoW.mudarCor(WoW.AMARELO);
                     jogardenovo = true;
-                    break; 
+                    return false;
                 }
             
 
@@ -325,28 +325,28 @@ public class ControleTeclasJogoComJNA {
             boolean bloqueio = false;
 
             // Não deixa o personagem sair da tela
-            if (posXJogador2 < 0) posXJogador2 = 0;
+            if (posXJogador2 <= -1) posXJogador2 = 0;
             if (posXJogador2 > 8) posXJogador2 = 8;
-            if (posYJogador2 < 0) posYJogador2 = 0;
+            if (posYJogador2 <= -1) posYJogador2 = 0;
             if (posYJogador2 > 8) posYJogador2 = 8;
                 
             // Não deixa o personagem passar por uma parede
-            if(posYJogador2 < antigoY && JoseeMateusTabuleiroeRegrasTCA.PAREDESHORIZONTAIS[posYJogador2][posXJogador2]) {
+            if(JoseeMateusTabuleiroeRegrasTCA.PAREDESHORIZONTAIS[posYJogador2][posXJogador2]) {
                 
                 bloqueio = true;
             }
             
-            if (posYJogador2 > antigoY && JoseeMateusTabuleiroeRegrasTCA.PAREDESHORIZONTAIS[posYJogador2][posXJogador2]) {
+            if (JoseeMateusTabuleiroeRegrasTCA.PAREDESHORIZONTAIS[posYJogador2][posXJogador2]) {
                 
                 bloqueio = true;
             }
             
-            if (posXJogador2 < antigoX && JoseeMateusTabuleiroeRegrasTCA.PAREDESVERTICAIS[posYJogador2][posXJogador2]) {
+            if (JoseeMateusTabuleiroeRegrasTCA.PAREDESVERTICAIS[posYJogador2][posXJogador2]) {
                 
                 bloqueio = true;
             }
             
-            if (posXJogador2 > antigoX && JoseeMateusTabuleiroeRegrasTCA.PAREDESHORIZONTAIS[posYJogador2][posXJogador2]) {
+            if (JoseeMateusTabuleiroeRegrasTCA.PAREDESHORIZONTAIS[posYJogador2][posXJogador2]) {
                 
                 bloqueio = true;
             }
@@ -355,6 +355,7 @@ public class ControleTeclasJogoComJNA {
                 
                 posXJogador2 = antigoX;
                 posYJogador2 = antigoY;
+                JoseeMateusTabuleiroeRegrasTCA.turnojogador--;
             } else {
                 
                 JoseeMateusTabuleiroeRegrasTCA.TABULEIRO[antigoY][antigoX] = 0;
@@ -362,7 +363,8 @@ public class ControleTeclasJogoComJNA {
                 redesenhar = true;
             }
             TocarSom.tocarSom("sons/som_movimento_peca.wav", false);
+            return true;
         }
-        return podesomar;
+        return false;
     }
 }
