@@ -90,22 +90,6 @@ public class InterfaceTCABar {
         """;
         WoW.mudarCor(83);
         System.out.print(creditos);
-        int tecla = ControleTeclasJogoComJNA.obtemTeclaPressionada();
-        while (true) {    
-            switch (tecla) {
-
-                case 27:
-                    imprimirInterface();
-                    break;
-                    
-                default:
-                    WoW.mudarCor(196);
-                    System.out.println("Por favor, digite SOMENTE ESC para sair.");
-                    WoW.mudarCor(WoW.AZUL);
-            
-            }        
-            break;
-        }
     }
 
     public static void imprimirInterface() {

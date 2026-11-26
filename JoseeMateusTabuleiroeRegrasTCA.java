@@ -107,7 +107,9 @@ public class JoseeMateusTabuleiroeRegrasTCA {
         
         TABULEIRO [ControleTeclasJogoComJNA.posYJogador1] [ControleTeclasJogoComJNA.posXJogador1] = 1;
         TABULEIRO [ControleTeclasJogoComJNA.posYJogador2] [ControleTeclasJogoComJNA.posXJogador2] = 2;
-
+        int teclacreditos = 0;
+        boolean imprimir = false;
+        boolean valor = false;
         while (true) {    
             
             
@@ -118,6 +120,7 @@ public class JoseeMateusTabuleiroeRegrasTCA {
 
                 InterfaceTCABar.exibirCreditos();
             }
+
             while (true) {
 
                 if (InterfaceTCABar.comecar1x1) {
