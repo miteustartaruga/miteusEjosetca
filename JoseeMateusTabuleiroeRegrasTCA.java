@@ -12,10 +12,12 @@
 * Você deve rodar o código do jogo neste arquivo!!
 */
 //Toda a importação de material deve ficar aqui em baixo antes do public class:
+import java.util.Scanner;
 public class JoseeMateusTabuleiroeRegrasTCA {
 
 //Qualquer tipo de variável declarada fora do método main deve ficar aqui:
    
+   static Scanner LER = new Scanner(System.in);
    static int[][] TABULEIRO = new int[9][9];
    static boolean[][] PAREDESHORIZONTAIS = new boolean[9][9];
    static boolean[][] PAREDESVERTICAIS = new boolean[9][9];
@@ -24,6 +26,10 @@ public class JoseeMateusTabuleiroeRegrasTCA {
 
 //Aqui vão ficar os métodos que serão ativados dentro do método main:
 
+    public static char lerLetra() {
+        char letra = LER.next().charAt(0);
+        return letra;
+    }
     public static void imprimirTabuleiro() {
         
         //Essa parte do código aq imprime a legenda
@@ -132,12 +138,13 @@ public class JoseeMateusTabuleiroeRegrasTCA {
         WoW.mudarCor(83);
         System.out.print(creditos);
         while (true) {
-            int tecla = ControleTeclasJogoComJNA.obtemTeclaPressionada();
+            char tecla = lerLetra();
             switch (tecla) {
 
                 case 27:
                     return;
                 case 64:
+                    InterfaceTCABar.telaSecretaCodigos();
                     break;
                 default:
                     WoW.mudarCor(196);

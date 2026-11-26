@@ -356,6 +356,7 @@ public class InterfaceTCABar {
         if(codigo.equalsIgnoreCase ("six seven")) {
             
             WoW.mudarCor(WoW.BRANCO);
+            TocarSom.tocarSom("sons/six-6-7-seven.wav", false);
             System.out.print(sixseven);
         }
 
